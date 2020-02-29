@@ -1184,6 +1184,7 @@ command /supersaiyan4:
 				remove strength from the player
 				set {vexen.ssj4.%player%} to false
 				set {vexen.cooldown.ssj4.%player%} to true
+				execute console command "/efly %player% off"
 				send "&5&lVEXEN &8» &7Super Saiyan 4 cooldown activated."
 				wait 300 seconds
 				set {vexen.cooldown.ssj4.%player%} to false
@@ -1224,6 +1225,7 @@ command /supersaiyang:
 				remove regeneration from the player
 				set {vexen.ssjg.%player%} to false
 				set {vexen.cooldown.ssjg.%player%} to true
+				execute console command "/efly %player% off"
 				send "&5&lVEXEN &8» &7Super Saiyan God cooldown activated."
 				wait 300 seconds
 				set {vexen.cooldown.ssjg.%player%} to false
