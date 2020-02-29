@@ -1152,3 +1152,17 @@ command /supersaiyan:
 				send "&5&lVEXEN &8» &7Super Saiyan is no longer on cooldown."
 		else:
 			send "&5&lVEXEN &8» &7Super Saiyan is on cooldown."
+
+command /KingStrike [<player>]:
+	permission: VibeKing
+	permission message: &5&lVEXEN &8» &7You do not have permission &fVibeKing&7 required to execute this command.
+	trigger:
+		if arg-1 is set:
+			broadcast "&5[Vibe King] &8» &7A solid attempt."
+			wait 1 seconds
+			broadcast "&5[Vibe King] &8» &c&oHakai."
+			apply blindness 1 to arg-1 for 2 seconds
+			apply weakness 255 to arg-1 for 2 seconds
+			apply slowness 255 to arg-1 for 2 seconds
+			wait 2 seconds
+			apply instant_damage 2 to arg-1
