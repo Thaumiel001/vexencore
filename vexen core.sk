@@ -1165,4 +1165,4 @@ command /KingStrike [<player>]:
 			apply weakness 255 to arg-1 for 2 seconds
 			apply slowness 255 to arg-1 for 2 seconds
 			wait 2 seconds
-			apply instant_damage 2 to arg-1
+			apply instant_damage 2 to arg-1 for 1 seconds
