@@ -1202,7 +1202,8 @@ command /supersaiyang:
 				execute console command "/esudo %player% c:The power of a God.."
 				apply speed 4 to player for 150 seconds
 				apply strength 2 to player for 150 seconds
-				apply resistance 2 to player for 150 seconds
+				apply resistance 3 to player for 150 seconds
+				apply regeneration 2 to player for 150 seconds
 				execute console command "/efly %player% on"
 				set {vexen.ssjg.%player%} to true
 				wait 150 seconds
@@ -1220,6 +1221,7 @@ command /supersaiyang:
 				remove resistance from the player
 				remove speed from the player
 				remove strength from the player
+				remove regeneration from the player
 				set {vexen.ssjg.%player%} to false
 				set {vexen.cooldown.ssjg.%player%} to true
 				send "&5&lVEXEN &8» &7Super Saiyan God cooldown activated."
