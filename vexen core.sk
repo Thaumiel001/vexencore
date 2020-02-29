@@ -1153,6 +1153,82 @@ command /supersaiyan:
 		else:
 			send "&5&lVEXEN &8» &7Super Saiyan is on cooldown."
 
+command /supersaiyan4:
+	aliases: /ssj4
+	permission: 2nitro
+	permission message: &5&lVEXEN &8» &7You do not have permission &f2nitro&7 required to execute this command.
+	trigger:
+		if {vexen.cooldown.ssj4.%player%} is not true:
+			if {vexen.ssj4.%player%} is not true:
+				broadcast "&5&lVEXEN &8» &7%player% goes Super Saiyan 4."
+				execute console command "/esudo %player% c:Supa Saiyajin Fo-da."
+				apply speed 4 to player for 150 seconds
+				apply strength 2 to player for 150 seconds
+				apply resistance 2 to player for 150 seconds
+				execute console command "/efly %player% on"
+				set {vexen.ssj4.%player%} to true
+				wait 150 seconds
+				if {vexen.ssj4.%player%} is true:
+					broadcast "&5&lVEXEN &8» &7%player% powers down."
+					set {vexen.ssj4.%player%} to false
+					set {vexen.cooldown.ssj4.%player%} to true
+					execute console command "/efly %player% off"
+					send "&5&lVEXEN &8» &7Super Saiyan 4 cooldown activated."
+					wait 300 seconds
+					set {vexen.cooldown.ssj4.%player%} to false
+					send "&5&lVEXEN &8» &7Super Saiyan 4 is no longer on cooldown."
+			else:
+				broadcast "&5&lVEXEN &8» &7%player% powers down."
+				remove resistance from the player
+				remove speed from the player
+				remove strength from the player
+				set {vexen.ssj4.%player%} to false
+				set {vexen.cooldown.ssj4.%player%} to true
+				send "&5&lVEXEN &8» &7Super Saiyan 4 cooldown activated."
+				wait 300 seconds
+				set {vexen.cooldown.ssj4.%player%} to false
+				send "&5&lVEXEN &8» &7Super Saiyan 4 is no longer on cooldown."
+		else:
+			send "&5&lVEXEN &8» &7Super Saiyan 4 is on cooldown."
+
+command /supersaiyang:
+	aliases: /ssjg
+	permission: 3nitro
+	permission message: &5&lVEXEN &8» &7You do not have permission &f3nitro&7 required to execute this command.
+	trigger:
+		if {vexen.cooldown.ssjg.%player%} is not true:
+			if {vexen.ssjg.%player%} is not true:
+				broadcast "&5&lVEXEN &8» &7%player% goes Super Saiyan God."
+				execute console command "/esudo %player% c:The power of a God.."
+				apply speed 4 to player for 150 seconds
+				apply strength 2 to player for 150 seconds
+				apply resistance 2 to player for 150 seconds
+				execute console command "/efly %player% on"
+				set {vexen.ssjg.%player%} to true
+				wait 150 seconds
+				if {vexen.ssjg.%player%} is true:
+					broadcast "&5&lVEXEN &8» &7%player% powers down."
+					set {vexen.ssjg.%player%} to false
+					set {vexen.cooldown.ssjg.%player%} to true
+					execute console command "/efly %player% off"
+					send "&5&lVEXEN &8» &7Super Saiyan God cooldown activated."
+					wait 300 seconds
+					set {vexen.cooldown.ssjg.%player%} to false
+					send "&5&lVEXEN &8» &7Super Saiyan God is no longer on cooldown."
+			else:
+				broadcast "&5&lVEXEN &8» &7%player% powers down."
+				remove resistance from the player
+				remove speed from the player
+				remove strength from the player
+				set {vexen.ssjg.%player%} to false
+				set {vexen.cooldown.ssjg.%player%} to true
+				send "&5&lVEXEN &8» &7Super Saiyan God cooldown activated."
+				wait 300 seconds
+				set {vexen.cooldown.ssjg.%player%} to false
+				send "&5&lVEXEN &8» &7Super Saiyan God is no longer on cooldown."
+		else:
+			send "&5&lVEXEN &8» &7Super Saiyan God is on cooldown."
+
 command /KingStrike [<player>]:
 	permission: VibeKing
 	permission message: &5&lVEXEN &8» &7You do not have permission &fVibeKing&7 required to execute this command.
