@@ -1,1 +1,24 @@
-test
+options:
+	version: 1.0
+	SubMessage: Vibe Powa by Diamistic
+  perm: &c&lVIBE
+	prefix: &C&lVIBE &8»&7
+
+script options:
+	$ use permissions
+
+on load:
+	set {vibe.load.time} to now
+	broadcast "{@prefix} Starting."
+
+on load:
+	wait 2 seconds
+	set {_t} to difference between {vibe.load.time} and now
+	broadcast "{@prefix} Enabled in &c%{_t}%&7."
+	broadcast "{@prefix} &cVIBE&7 by Diamistic. (Thaumiel)"
+
+on unload:
+	broadcast "{@prefix} Disabled."
+  
+command /vibe:
+  asd
