@@ -1,0 +1,143 @@
+options:
+  prefix: &cKSP &8»&7
+
+on load:
+  wait 5 seconds
+  broadcast "{@prefix} All drops enabled."
+  set {ksp.spawns.aja} to "true"
+  set {ksp.spawns.starrow} to "true"
+  set {ksp.spawns.reqarrow} to "true"
+  set {ksp.spawns.ajamask} to "true"
+  set {ksp.spawns.mask} to "true"
+  set {ksp.spawns.corpse} to "true"
+
+command /kspspawn [<text>] [<text>]:
+  permission: ksp.spawn
+  permission message: {@prefix} You need permission &fksp.spawn&7 to use this command.
+  trigger:
+    if arg-1 is not set:
+      send "{@prefix} /kspspawn [item] - Toggles dropping of an specific item. Put on or off if you want to disable all of them at a time."
+      send "{@prefix} Items:"
+      send "{@prefix} aja - {@ksp.spawns.aja}"
+      send "{@prefix} starrow - {@ksp.spawns.starrow}"
+      send "{@prefix} reqarrow - {@ksp.spawns.reqarrow}"
+      send "{@prefix} ajamask - {@ksp.spawns.ajamask}"
+      send "{@prefix} mask - {@ksp.spawns.mask}"
+      send "{@prefix} corpse - {@ksp.spawns.corpse}"
+      send "{@prefix} You can use the variable all to toggle them all, too."
+    else if arg-1 is "aja":
+      if {ksp.spawns.aja} is "true":
+        set {ksp.spawns.aja} to "false"
+        broadcast "{@prefix} &c%player% &7disabled spawning of &cRed Aja&7."
+      else if {ksp.spawns.aja} is "false":
+        set {ksp.spawns.aja} to "true":
+        broadcast "{@prefix} &c%player% &7enabled spawning of &cRed Aja&7."
+    else if arg-1 is "starrow":
+      if {ksp.spawns.starrow} is "true":
+        set {ksp.spawns.starrow} to "false"
+        broadcast "{@prefix} &c%player% &7disabled spawning of &cStand Arrow&7."
+      else if {ksp.spawns.starrow} is "false":
+        set {ksp.spawns.starrow} to "true":
+        broadcast "{@prefix} &c%player% &7enabled spawning of &cStand Arrow&7."
+    else if arg-1 is "reqarrow":
+      if {ksp.spawns.reqarrow} is "true":
+        set {ksp.spawns.reqarrow} to "false"
+        broadcast "{@prefix} &c%player% &7disabled spawning of &cRequiem Arrow&7."
+      else if {ksp.spawns.reqarrow} is "false":
+        set {ksp.spawns.reqarrow} to "true":
+        broadcast "{@prefix} &c%player% &7enabled spawning of &cRequiem Arrow&7."
+    else if arg-1 is "ajamask":
+      if {ksp.spawns.ajamask} is "true":
+        set {ksp.spawns.ajamask} to "false"
+        broadcast "{@prefix} &c%player% &7disabled spawning of &cAja Mask&7."
+      else if {ksp.spawns.ajamask} is "false":
+        set {ksp.spawns.ajamask} to "true":
+        broadcast "{@prefix} &c%player% &7enabled spawning of &cAja Mask&7."
+    else if arg-1 is "mask":
+      if {ksp.spawns.mask} is "true":
+        set {ksp.spawns.mask} to "false"
+        broadcast "{@prefix} &c%player% &7disabled spawning of &cVampire Mask&7."
+      else if {ksp.spawns.mask} is "false":
+        set {ksp.spawns.mask} to "true":
+        broadcast "{@prefix} &c%player% &7enabled spawning of &cVampire Mask&7."
+    else if arg-1 is "corpse":
+      if {ksp.spawns.corpse} is "true":
+        set {ksp.spawns.corpse} to "false"
+        broadcast "{@prefix} &c%player% &7disabled spawning of &cCorpse Part&7."
+      else if {ksp.spawns.corpse} is "false":
+        set {ksp.spawns.corpse} to "true":
+        broadcast "{@prefix} &c%player% &7enabled spawning of &cCorpse Part&7."
+    else if arg-1 is "all":
+      if arg-2 is not set:
+        send "{@prefix} Please specify on or off."
+      else:
+        if arg-2 is "on":
+          broadcast "{@prefix} &c%player% &7enabled spawning of &cAll Items&7."
+          set {ksp.spawns.corpse} to "true"
+          set {ksp.spawns.mask} to "true"
+          set {ksp.spawns.ajamask} to "true"
+          set {ksp.spawns.reqarrow} to "true"
+          set {ksp.spawns.starrow} to "true"
+          set {ksp.spawns.aja} to "true"
+        else if arg-2 is "off":
+          broadcast "{@prefix} &c%player% &7enabled spawning of &cAll Items&7."
+          set {ksp.spawns.corpse} to "false"
+          set {ksp.spawns.mask} to "false"
+          set {ksp.spawns.ajamask} to "false"
+          set {ksp.spawns.reqarrow} to "false"
+          set {ksp.spawns.starrow} to "false"
+          set {ksp.spawns.aja} to "false"
+
+on death of Silverfish:
+  if {ksp.spawns.corpse} is "true":
+    if chance of 1%:
+      execute console command "/egive %attacker% rottenflesh 1 name:&cCorpse_Part lore:&cGive_to_Thaumiel_to_use_the_Holy_Corpse_of_Jesus_Christ,_if_you_know_what_it_does._Or,_keep_it_for_yourself..."
+
+on death of Endermite:
+  if {ksp.spawns.corpse} is "true":
+    if chance of 1%:
+      execute console command "/egive %attacker% rottenflesh 1 name:&cCorpse_Part lore:&cGive_to_Thaumiel_to_use_the_Holy_Corpse_of_Jesus_Christ,_if_you_know_what_it_does._Or,_keep_it_for_yourself..."
+
+on death of Wither:
+  if {ksp.spawns.ajamask} is "true":
+    if chance of 10%:
+      execute console command "/egive %attacker% reddye 1 name:&cRed_Aja lore:&cGive_to_Thaumiel_to_unlock_Ultimate_Lifeform_once_you_have_Kars_and_the_Aja_Mask,_or_keep_it_for_yourself..."
+
+on death of Ender Dragon:
+  if {ksp.spawns.aja} is "true":
+    if chance of 5%:
+      execute console command "/egive %attacker% ironhelmet 1 name:&cAja_Mask lore:&cGive_to_Thaumiel_to_unlock_Ultimate_Lifeform_once_you_have_Kars_and_the_Red_Aja,_or_keep_it_for_yourself..."
+
+on death of Ghast:
+  if {ksp.spawns.mask} is "true":
+    if chance of 1%:
+      execute console command "/egive %attacker% ironhelmet 1 name:&cVampire_Mask lore:&cGive_to_Thaumiel_to_unlock_Vampire_or_Kars,_if_you_already_have_Vampire,_or_keep_it_for_yourself..."
+
+on death of Enderman:
+  if {ksp.spawns.starrow} is "true":
+    if {ksp.spawns.reqarrow} is "true":
+      if chance of 1%:
+        if chance of 10%:
+          execute console command "/egive %attacker% arrow 1 name:&bStand_Arrow lore:&bGive_to_Thaumiel_to_use_it,_or_keep_it_for_yourself..."
+        if chance of 3%:
+          if chance of 34%:
+            execute console command "/egive %attacker% stick 1 name:&cRequiem_Arrow_Piece_-_Beetle lore:&cGive_to_Thaumiel_to_craft_into_a_requiem_arrow_once_you_have_all_three_pieces."
+          if chance of 33%:
+            execute console command "/egive %attacker% stick 1 name:&cRequiem_Arrow_Piece_-_Body lore:&cGive_to_Thaumiel_to_craft_into_a_requiem_arrow_once_you_have_all_three_pieces."
+          if chance of 33%:
+            execute console command "/egive %attacker% stick 1 name:&cRequiem_Arrow_Piece_-_Head lore:&cGive_to_Thaumiel_to_craft_into_a_requiem_arrow_once_you_have_all_three_pieces."
+    else:
+      if chance of 1%:
+        if chance of 13%:
+          execute console command "/egive %attacker% arrow 1 name:&bStand_Arrow lore:&bGive_to_Thaumiel_to_use_it,_or_keep_it_for_yourself..."
+  else if {ksp.spawns.reqarrow} is "true":
+    if chance of 1%:
+      if chance of 2%:
+        if chance of 34%:
+          execute console command "/egive %attacker% stick 1 name:&cRequiem_Arrow_Piece_-_Beetle lore:&cGive_to_Thaumiel_to_craft_into_a_requiem_arrow_once_you_have_all_three_pieces."
+        if chance of 33%:
+          execute console command "/egive %attacker% stick 1 name:&cRequiem_Arrow_Piece_-_Body lore:&cGive_to_Thaumiel_to_craft_into_a_requiem_arrow_once_you_have_all_three_pieces."
+        if chance of 33%:
+          execute console command "/egive %attacker% stick 1 name:&cRequiem_Arrow_Piece_-_Head lore:&cGive_to_Thaumiel_to_craft_into_a_requiem_arrow_once_you_have_all_three_pieces."
+  else:
+    stop

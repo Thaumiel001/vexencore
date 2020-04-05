@@ -1,0 +1,2681 @@
++
+  version: 1.0
+  prefix: &cKSP &8»&7
+  line: &0-----------------------------
+
+script options:
+  $ use permissions
+
+on load:
+  set (ksp.load.time) to now
+  broadcast "&cKSP (Kono Stando Powa) by Diamistic."
+  broadcast "{@prefix} Piercing with the stand arrow..."
+
+on load:
+  wait 2 seconds
+  set {_t} to difference between {ksp.load.time} and now
+  broadcast "{@prefix} Unlocking full potential..."
+
+on unload:
+  broadcast "{@prefix} Eating the rokakaka fruit."
+
+
+
+#possible future stands:
+#
+
+command /cancelts [<text>] [<text>]:
+  permission: ksp.admin
+  permission message: {@prefix} You need permission &fksp.admin&7 to use this command.
+  trigger:
+    if {ksp.cancelts.verify:%player%} is "off":
+      if arg-1 is not set:
+        broadcast "&c"
+        broadcast "&cKSP &8» &c%player% &7cancelled the event."
+        broadcast "&c"
+        broadcast "{@prefix} If this was an abusive move, contact an Administrator."
+        broadcast "&c"
+        broadcast "{@prefix} Abusive event cancels are: Cancelling a time move for self-gain. Cancelling a time move for no real reason. - These rules are ignored for Administrators."
+        broadcast "&c"
+        set {ksp.timestop} to false
+        set {ksp.timestop.user} to "none"
+      else:
+        if arg-1 is "bypass":
+          if arg-2 is "off":
+            send "{@prefix} Turned off your bypass."
+            set {ksp.cancelts.verify:%player%} to "on"
+          else if arg-2 is "on":
+            send "{@prefix} It's already on?"
+      else:
+        send "{@prefix} I don't recognize that argument."
+    else:
+      if arg-1 is "verify":
+        if {ksp.cancelts.verify.ready:%player%} is "true":
+          send "{@prefix} Command verified."
+            broadcast "&c"
+            broadcast "&cKSP &8» &c%player% &7cancelled the event."
+            broadcast "&c"
+            broadcast "{@prefix} If this was an abusive move, contact an Administrator."
+            broadcast "&c"
+            broadcast "{@prefix} Abusive event cancels are: Cancelling a time move for self-gain. Cancelling a time move for no real reason. - These rules are ignored for Administrators."
+            broadcast "&c"
+            execute console command "/minecraft:effect clear @e"
+        else:
+          send "{@prefix} You need to verify again!"
+      else:
+        if arg-1 is "bypass":
+          if arg-2 is not set:
+            send "{@prefix} Please specify if you want to turn bypass on or off."
+          else:
+            if arg-2 is "on":
+              if {ksp.cancelts.verify:%player%} is not "off":
+                send "{@prefix} Enabled verification bypass."
+                set {ksp.cancelts.verify:%player%} to "off"
+            else:
+              if arg-2 is "off":
+                if {ksp.cancelts.verify:%player%} is not "off":
+                  send "{@prefix} It's already off!"
+        else:
+          send "&c"
+          send "{@prefix} Please verify you want to do this event with the command below. Abusing cancelts by doing it for no reason or self-gain is punishable if you are not an admin."
+          send "&c"
+          send "{@prefix} /cancelts verify"
+          send "&c"
+          send "{@prefix} If you want to skip this warning from now on, do /cancelts bypass on. To disable that, do /cancelts bypass off."
+          send "&c"
+          send "{@prefix} You have 10 seconds to execute cancelts verify. However, you can enable/disable bypass whenever."
+          send "&c"
+          set {ksp.cancelts.verify.ready:%player%} to "true"
+          wait 10 seconds
+          set {ksp.cancelts.verify.ready:%player%} to "false"
+          send "{@prefix} Cancelts verification timer ran out."
+
+command /stand:
+  trigger:
+    send "{@line}"
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&cCommand List:"
+    send "&c/stand"
+    send "{@line}"
+    send "&cStand List:"
+    send "&c"
+    send "&eThe World &8» &e/tw"
+    send "&6Gold Experience &8» &6/ge &f- &6Evolved Form: Gold Experience Requiem &8» &6/ger"
+    send "&fSilver Chariot &8» &f/sc &f- &0Evolved Form: Silver Chariot Requiem &8» &0/scr"
+    send "&bCrazy Diamond &8» &b/cd"
+    send "&1Sticky Fingers &8» &1/sf"
+    send "&4Magician's Red &8» &4/mr"
+    send "&5Star Platinum Prime &8» &7/spp"
+    send "&bStar Platinum The World &8» &7/sptw"
+    send "&fWeather &7Report &8» &7/wr"
+    send "&fMade In Heaven &8» &f/mih"
+    send "&cKing Crimson &8» &c/kc"
+    send "&dTusk Act 1 &8» &d/t1"
+    send "&dTusk Act 2 &8» &d/t2"
+    send "&dTusk Act 3 &8» &d/t3"
+    send "&dTusk Act 4 &8» &d/t4"
+    send "&1Jonathan Joestar Hamon &8» &d/jojoh"
+    send "&2Joseph Joestar Hamon &8» &d/josephh"
+    send "&fWhitesnake &8» &f/ws"
+    send "&cVampire &8» &c/vamp"
+    send "&0Kars &8» &0/kars"
+    send "&bUltimate Lifeform &8» &b/ulf"
+    send "&bD&d4&bC &8» &b/d&d4&bc"
+    send "&5Purple &0Haze &8» &5/ph"
+    send "&6Spooky Scary Skeletons &8» &6/ss"
+    send "&2C-Moon &8» &2/cmo"
+    send "&9Star Platinum Over Heaven &8» &9/spoh"
+    send "{@line}"
+
+
+#Purple Haze
+
+
+command /ph:
+  permission: ksp.ph
+  permission message: {@prefix} You need permission &fksp.ph&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&5/phrush or /phubasha &f- &5UBASHAAAAA! - Rush with wither effects."
+    send "&5/phblast (target) &f- &5Wither blast someone."
+    send "&5/phflood &f- &5Everyone within 50 blocks gets withered."
+    send "{@line}"
+
+command /phflood:
+  permission: ksp.ph
+  permission message: {@prefix} You need permission &fksp.ph&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&5%player%'s Purple Haze &8» &7Ubasha..."
+        set {ksp.ph.flooduser.%player%} to true:
+        loop all players:
+          if {ksp.ph.flooduser.%loop-player%} is not true:
+      			set {_distance} to distance between loop-player and player
+      			if {_distance} > 50:
+              execute console command "/minecraft:effect give %loop-player% wither 20 9 true"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% PHFLOOD on cooldown"
+        wait 65 seconds
+        send "{@prefix} Flood no longer on cooldown."
+        execute console command "/ehelpop %player% PHFLOOD no longer on cooldown"
+
+command /phblast [<player>]:
+  permission: ksp.ph
+  permission message: {@prefix} You need permission &fksp.ph&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        if arg-1 is not set:
+          send "{@prefix} Select a player to blast."
+        else:
+          execute console command "/minecraft:effect give %arg-1% wither 5 7 true"
+          broadcast "&5%player%'s Purple Haze &8» &7Hhggh..."
+          send "{@prefix} Please wait for the cooldown before using this ability again."
+          execute console command "/ehelpop %player% PHBLAST on cooldown"
+          wait 45 seconds
+          send "{@prefix} Blast no longer on cooldown."
+          execute console command "/ehelpop %player% PHBLAST no longer on cooldown"
+
+command /phrush:
+  aliases: /phubasha
+  permission: ksp.ph
+  permission message: {@prefix} You need permission &fksp.ph&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        set {ksp.phrush.%player%} to true
+        execute console command "/minecraft:effect give %player% strength 5 2"
+        broadcast "&5%player%'s Purple Haze &8» &7UBASHAAAAAAAAA!"
+        wait 5 seconds
+        broadcast "&5%player%'s Purple Haze &8» &7UBASHA!"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% PHRUSH on cooldown"
+        wait 10 seconds
+        send "{@prefix} Stand rush cooldown over."
+        execute console command "/ehelpop %player% PHRUSH no longer on cooldown"
+        set {ksp.phrush.%player%} to false
+
+on damage:
+  if {ksp.phrush.%attacker%} is true:
+    execute console command "/minecraft:effect give %victim% wither 2 7 true"
+
+
+#Crazy Echoes
+
+
+command /ce:
+  permission: ksp.ce
+  permission message: {@prefix} You need permission &fksp.ce&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&b/cehealpunch or /ceheal (target) &f- &aDORA! Heal anyone you target."
+    send "&b/cerush or /cedora &f- &aStand power rush. &f- &aDORARARARARARARARARARARA!"
+    send "&b/cefreeze or /cefreeze &f- &a3-FREEZE!"
+    send "{@line}"
+
+command /cefreeze:
+  permission: ksp.ce
+  permission message: {@prefix} You need permission &fksp.ce&7 to use this command.
+  trigger:
+    if arg-1 is not set:
+      send "{@prefix} Please specify a target."
+    else:
+      set {ksp.crazyechoes.freeze.%player%} to true
+      wait 10 seconds
+      set {ksp.crazyechoes.freeze.%player%} to false
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% CEFREEZE on cooldown"
+      wait 15 seconds
+      send "{@prefix} 3-Freeze cooldown over."
+      execute console command "/ehelpop %player% CEFREEZE no longer on cooldown"
+
+on damage:
+  if {ksp.crazyechoes.freeze.%attacker%} is true:
+    broadcast "&a%attacker%'s &bCrazy &aEchoes &8» &73-FREEZE!"
+    execute console command "/minecraft:effect give %victim% slowness 10 5 true"
+    execute console command "/minecraft:effect give %victim% weakness 10 255 true"
+    set {ksp.crazyechoes.freeze.%attacker%} to false
+
+command /cehealpunch [<player>]:
+  aliases: /ceheal
+  permission: ksp.ce
+  permission message: {@prefix} You need permission &fksp.ce&7 to use this command.
+  trigger:
+    if arg-1 is set:
+      if arg-1 is not "%player%":
+        broadcast "&a%player%'s &bCrazy &aEchoes &8» &7DORARARARARARARARA!"
+        execute console command "/minecraft:effect give %arg-1% regeneration 5 3 true"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% CEHEALPUNCH on cooldown"
+        wait 10 seconds
+        send "{@prefix} Heal punch cooldown over."
+        execute console command "/ehelpop %player% CEHEALPUNCH no longer on cooldown"
+    else:
+      send "{@prefix} Specify a player."
+
+command /cerush:
+  aliases: /cedora
+  permission: ksp.ce
+  permission message: {@prefix} You need permission &fksp.ce&7 to use this command.
+  trigger:
+    execute console command "/minecraft:effect give %player% strength 5 2"
+    broadcast "&a%player%'s &bCrazy &aEchoes &8» &7DORARARARARARARARARARARARARARARARARARARARARARARARARARA!"
+    wait 5 seconds
+    broadcast "&a%player%'s &bCrazy &aEchoes &8» &7DORA!"
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% CERUSH on cooldown"
+    wait 10 seconds
+    send "{@prefix} Stand rush cooldown over."
+    execute console command "/ehelpop %player% CERUSH no longer on cooldown"
+
+
+#D4Kiss
+
+
+command /d4k:
+  permission: ksp.d4k
+  permission message: {@prefix} You need permission &fksp.d4k&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&b/d4kchop &f- &bSwift, powerful slice."
+    send "&b/d4kexchange &f- &bSwap dimensions, go invisible and invulnerable with higher speed for a few seconds. &f- &b&lYou'll be locked out of the move if you are in time stop or infinite rotation."
+    send "&b/d4kstrike (target) &f- &bSneak attack the target specified."
+    send "&b/d4kclone &f- &bPlaces a mark at the area, executing the command again will teleport you to the mark and reset the move."
+    send "&b/d4kdupe &f- &bMakes d4cstrike, regular attacks, and d4cchop stronger."
+    send "&b"
+    send "&bCorpse &dPart &bAbilities"
+    send "&b"
+    send "&b/d4klovetrain &f- &bUse the holy corpse of Jesus Christ to protect yourself from pretty much all attacks except infinite rotation and return to zero."
+    send "{@line}"
+
+command /d4kchop:
+  permission: ksp.d4k
+  permission message: {@prefix} You need permsision &fksp.d4k&7 to use this command.
+  trigger:
+    if {ksp.d4c.exchange.%player%} is not "exchanged":
+      if {ksp.d4k.dupe:%player%} is "true":
+        execute console command "/minecraft:effect give %player% strength 3 4"
+        broadcast "&b%player%'s D&d4&5K &8» &7Dojyaaaan~!"
+        wait 2 seconds
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% D4KCHOP on cooldown"
+        wait 10 seconds
+        send "{@prefix} Chop cooldown over."
+        execute console command "/ehelpop %player% D4KCHOP no longer on cooldown"
+      else:
+        execute console command "/minecraft:effect give %player% strength 2 3"
+        broadcast "&b%player%'s D&d4&5K &8» &7Dojyaaaan~!"
+        wait 2 seconds
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% D4KCHOP on cooldown"
+        wait 10 seconds
+        send "{@prefix} Chop cooldown over."
+        execute console command "/ehelpop %player% D4KCHOP no longer on cooldown"
+
+command /d4kexchange:
+  permission: ksp.d4k
+  permission message: {@prefix} You need permission &fksp.d4k&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.infrotate:%player%} is not "true":
+        if {ksp.d4c.exchange.%player%} is not "exchanged":
+          broadcast "&b%player%'s D&d4&bC &8» &7Dojyaaaan~!"
+          execute console command "/minecraft:effect give %player% invisibility 9999 255 true"
+          execute console command "/minecraft:effect give %player% resistance 9999 255 true"
+          execute console command "/minecraft:effect give %player% speed 9999 2 true"
+          execute console command "/minecraft:effect give %player% weakness 9999 255 true"
+          set {ksp.d4c.exchange.%player%} to "exchanged"
+        else:
+          broadcast "&b%player%'s D&d4&5K &8» &7Dojyaaaan~!"
+          execute console command "/minecraft:effect clear %player%"
+          set {ksp.d4c.exchange.%player%} to "not exchanged"
+          send "{@prefix} Please wait for the cooldown before using this ability again."
+          execute console command "/ehelpop %player% D4KEXCHANGE on cooldown"
+          wait 30 seconds
+          send "{@prefix} Exchange cooldown over."
+          execute console command "/ehelpop %player% D4KEXCHANGE no longer on cooldown"
+
+command /d4kclone:
+  permission: ksp.d4k
+  permission message: {@prefix} You need permission &fksp.d4k&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.d4c.clone:%player%} is not "placed":
+        send "{@prefix} Placed clone."
+        set {ksp.d4c.clone:%player%} to "placed"
+        set {ksp.d4c.clone.location:%player%} to location of player
+      else if {ksp.d4c.clone:%player%} is "placed":
+        teleport the player to {ksp.d4c.clone.location:%player%}
+        broadcast "&b%player%'s D&d4&5K &8» &7Dojyaaaan~!"
+        set {ksp.d4c.clone:%player%} to "not placed"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% D4KCLONE on cooldown"
+        wait 60 seconds
+        send "{@prefix} Clone cooldown over."
+        execute console command "/ehelpop %player% D4KCLONE no longer on cooldown"
+
+command /d4kstrike [<player>]:
+  permission: ksp.d4k
+  permission message: {@prefix} You need permission &fksp.d4k&7 to use this command.
+  trigger:
+    if {ksp.d4k.dupe:%player%} is "true":
+      send "&b%player%'s D&d4&eK &8» &7Dojyaaaan~!" to arg 1
+      wait 2 seconds
+      send "{@prefix} D4K chops you, dealing lots of damage."
+      execute console command "/minecraft:effect give %arg-1% instant_damage 1 3 true"
+    else if {ksp.d4k.dupe:%player%} is not "true":
+      send "&b%player%'s D&d4&eK &8» &7Dojyaaaan~!" to arg 1
+      wait 2 seconds
+      send "{@prefix} D4K chops you, dealing lots of damage."
+      execute console command "/minecraft:effect give %arg-1% instant_damage 1 2 true"
+
+command /d4klovetrain:
+  permission: ksp.d4k.holy
+  permission message: {@prefix} You need permission &fksp.d4k.holy&7 to use this command.
+  trigger:
+    if {ksp.infrotate:%player%} is not true:
+      broadcast "&b%player%'s D&d4&eK &8» &7Love Train!"
+      execute console command "/minecraft:effect give %player% regeneration 30 255 true"
+      execute console command "/minecraft:effect give %player% resistance 30 255 true"
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% D4KLOVETRAIN on cooldown"
+      wait 90 seconds
+      send "{@prefix} Love Train cooldown over."
+      execute console command "/ehelpop %player% D4KLOVETRAIN no longer on cooldown"
+
+command /d4kdupe:
+  permission: ksp.d4k
+  permission message: {@prefix} You need permission &fksp.d4k&7 to use this command.
+  trigger:
+    execute console command "/minecraft:effect give %player% strength 10 1 true"
+    broadcast "&b%player%'s &bD&d4&5K &8» &7Dojyaaaan~!"
+    set {ksp.d4k.dupe:%player%} to "true"
+    send "&cYour stand rush is now stronger, along with other, and regular attacks."
+    wait 10 seconds
+    set {ksp.d4k.dupe:%player%} to "false"
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% D4KDUPE on cooldown"
+    wait 30 seconds
+    send "{@prefix} Dupe cooldown over."
+    execute console command "/ehelpop %player% D4KDUPE no longer on cooldown"
+
+
+#Echoes
+
+
+command /e3:
+  permission: ksp.e3
+  permission message: {@prefix} You need permission &fksp.e3&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&a/e3rush &f- &aWeak stand rush."
+    send "&a/e3freeze &f- &aSlow your enemy down and make them lose their ability to attack."
+    send "{@line}"
+
+command /e3rush:
+  permission: ksp.e3
+  permission message: {@prefix} You need permission &fksp.e3&7 to use this command.
+  trigger:
+    execute console command "/minecraft:effect give %player% strength 5 0"
+    broadcast "&a%player%'s Echoes &8» &7ECHOES!"
+    broadcast "{@prefix} %player% does a silent stand rush with &aEchoes&7."
+    wait 5 seconds
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% E3RUSH on cooldown"
+    wait 10 seconds
+    send "{@prefix} Stand rush cooldown over."
+    execute console command "/ehelpop %player% E3RUSH no longer on cooldown"
+
+command /e3freeze:
+  permission: ksp.e3
+  permission message: {@prefix} You need permission &fksp.e3&7 to use this command.
+  trigger:
+    if arg-1 is not set:
+      send "{@prefix} Please specify a target."
+    else:
+      set {ksp.echoes.freeze.%player%} to true
+      wait 10 seconds
+      set {ksp.echoes.freeze.%player%} to false
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% E3FREEZE on cooldown"
+      wait 15 seconds
+      send "{@prefix} 3-Freeze cooldown over."
+      execute console command "/ehelpop %player% E3FREEZE no longer on cooldown"
+
+on damage:
+  if {ksp.echoes.freeze.%attacker%} is true:
+    broadcast "&a%attacker%'s Echoes &8» &73-FREEZE!"
+    execute console command "/minecraft:effect give %victim% slowness 10 5 true"
+    execute console command "/minecraft:effect give %victim% weakness 10 255 true"
+    set {ksp.echoes.freeze.%attacker%} to false
+
+
+#Kiss
+
+
+command /ks:
+  permission: ksp.ks
+  permission message: {@prefix} You need permission &fksp.ks&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&e/ksrush &f- &5Weak stand rush."
+    send "&e/ksdupe &f- &5Duplicate your arms and do higher damage to your enemy."
+    send "&e/ksrip &f- &5Place and rip a sticker off your target, damaging them."
+    send "&e"
+    send "&eLocked Abilities (Admin only) for now"
+    send "&e"
+    send "&e/ksdick &f- &5Multiplies dick size."
+    send "{@line}"
+
+command /ksrush:
+  permission: ksp.ks
+  permission message: {@prefix} You need permission &fksp.ks&7 to use this command.
+  trigger:
+    if {ksp.ks.dupe:%player%} is "true":
+      execute console command "/minecraft:effect give %player% strength 5 2"
+    else:
+      execute console command "/minecraft:effect give %player% strength 5 0"
+    broadcast "{@prefix} %player% does a silent stand rush with &eK&5i&es&5s&7."
+    wait 5 seconds
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% KSRUSH on cooldown"
+    wait 15 seconds
+    send "{@prefix} Stand rush cooldown over."
+    execute console command "/ehelpop %player% KSRUSH no longer on cooldown"
+
+command /ksdupe:
+  permission: ksp.ks
+  permission message: {@prefix} You need permission &fksp.ks&7 to use this command.
+  trigger:
+    execute console command "/minecraft:effect give %player% strength 10 1 true"
+    broadcast "&e%player%'s &5K&ei&5s&es &8» &7KISS!"
+    set {ksp.ks.dupe:%player%} to "true"
+    send "&cYour stand rush is now stronger, along with regular attacks."
+    wait 10 seconds
+    set {ksp.ks.dupe:%player%} to "false"
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% KSDUPE on cooldown"
+    wait 30 seconds
+    send "{@prefix} Dupe cooldown over."
+    execute console command "/ehelpop %player% KSDUPE no longer on cooldown"
+
+command /ksrip:
+  permission: ksp.ks
+  permission message: {@prefix} You need permission &fksp.ks&7 to use this command.
+  trigger:
+    send "{@prefix} Hit someone within 5 seconds to damage them."
+    set {ksp.kiss.rip.%attacker%} to true
+    wait 5 seconds
+    set {ksp.kiss.rip.%attacker%} to false
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% KSRIP on cooldown"
+    wait 15 seconds
+    send "{@prefix} Rip cooldown over."
+    execute console command "/ehelpop %player% KSRIP no longer on cooldown"
+
+on damage:
+  if {ksp.kiss.rip.%attacker%} is true:
+    broadcast "&e%attacker%'s &5K&ei&5s&es &8» &7KISS!"
+    execute console command "/minecraft:effect give %victim% instant_damage 1 0 true"
+    set {ksp.kiss.rip.%attacker%} to false
+
+command /ksdick:
+  permission: diamistic
+  permission message: {@prefix} You need permission &fdiamistic&7 to use this command.
+  trigger:
+    broadcast "&e%player%'s &5Kiss &eRequiem &8» &7Korega... Kiss Requiem."
+    broadcast "{@prefix} %player%'s dick grows thousands of meters in seconds."
+    wait 1 second
+    broadcast "&7Random Stand-less Civilian &8» &7What the hell?"
+    wait 1 second
+    broadcast "&e%player%'s &5Kiss &eRequiem &8» &7Shut up, &c&lnigger&7."
+    wait 2 seconds
+    broadcast "&e%player%'s &5Kiss &eRequiem &8» &7My dick size now allows me to go into the last transformation, the strongest transformation."
+    wait 3 seconds
+    broadcast "&e%player%'s &5Kiss &eRequiem &8» &c&lSicko Sex Saiyan 27&7."
+    wait 2 seconds
+    broadcast "&e&l%player%, the SICKO SEX SAIYAN 27 &8» &7RESISTANCE IS FUTILE, &c&lNIGGERS&7!"
+    execute console command "/minecraft:effect give %player% resistance 30 2 true"
+    execute console command "/fly %player% on"
+    execute console command "/minecraft:effect give %player% speed 30 2 true"
+    execute console command "/minecraft:effect give %player% regeneration 30 1 true"
+    execute console command "/minecraft:effect give %player% strength 30 2 true"
+    execute console command "/minecraft:effect give %player% haste 30 255 true"
+    wait 25 seconds
+    send "&cKSP &8» &c&l5 seconds."
+    wait 5 seconds
+    broadcast "&e&l%player%, the SICKO SEX SAIYAN 27 &8» &7NO, I'M GOING BACK TO NORMAL!"
+    execute console command "/minecraft:effect clear %player%"
+    execute console command "/fly %player% off"
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% KSDICK on cooldown"
+    wait 5 seconds
+    send "{@prefix} Penis multiplication cooldown over."
+    execute console command "/ehelpop %player% KSDICK no longer on cooldown"
+
+
+#Dirty Deeds Done Dirt Cheap
+
+
+command /d4c:
+  permission: ksp.d4c
+  permission message: {@prefix} You need permission &fksp.d4c&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&b/d4cchop &f- &bSwift, powerful slice."
+    send "&b/d4cexchange &f- &bSwap dimensions, go invisible and invulnerable with higher speed for a few seconds. &f- &b&lYou'll be locked out of the move if you are in time stop or infinite rotation."
+    send "&b/d4cclone &f- &bPlaces a mark at the area, executing the command again will teleport you to the mark and reset the move."
+    send "&b"
+    send "&bCorpse &dPart &bAbilities"
+    send "&b"
+    send "&b/d4clovetrain &f- &bUse the holy corpse of Jesus Christ to protect yourself from pretty much all attacks except infinite rotation and return to zero."
+    send "{@line}"
+
+command /d4cchop:
+  permission: ksp.d4c
+  permission message: {@prefix} You need permsision &fksp.d4c&7 to use this command.
+  trigger:
+    if {ksp.d4c.exchange.%player%} is not "exchanged":
+      broadcast "&b%player%'s D&d4&bC &8» &7Dojyaaaan~!"
+      execute console command "/minecraft:effect give %player% strength 3 3"
+      wait 2 seconds
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% D4CCHOP on cooldown"
+      wait 10 seconds
+      send "{@prefix} Chop cooldown over."
+      execute console command "/ehelpop %player% D4CCHOP no longer on cooldown"
+
+command /d4cexchange:
+  permission: ksp.d4c
+  permission message: {@prefix} You need permission &fksp.d4c&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.infrotate:%player%} is not "true":
+        if {ksp.d4c.exchange.%player%} is not "exchanged":
+          broadcast "&b%player%'s D&d4&bC &8» &7Dojyaaaan~!"
+          execute console command "/minecraft:effect give %player% invisibility 30 255 true"
+          execute console command "/minecraft:effect give %player% resistance 30 255 true"
+          execute console command "/minecraft:effect give %player% speed 30 2 true"
+          execute console command "/minecraft:effect give %player% weakness 30 255 true"
+          set {ksp.d4c.exchange.%player%} to "exchanged"
+#######else:
+          wait 30 seconds
+          broadcast "&b%player%'s D&d4&bC &8» &7Dojyaaaan~!"
+          execute console command "/minecraft:effect clear %player%"
+          set {ksp.d4c.exchange.%player%} to "not exchanged"
+          send "{@prefix} Please wait for the cooldown before using this ability again."
+          execute console command "/ehelpop %player% D4CEXCHANGE on cooldown"
+          wait 60 seconds
+          send "{@prefix} Exchange cooldown over."
+          execute console command "/ehelpop %player% D4CEXCHANGE no longer on cooldown"
+
+command /d4cclone:
+  permission: ksp.d4c
+  permission message: {@prefix} You need permission &fksp.d4c&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.d4c.clone:%player%} is not "placed":
+        send "{@prefix} Placed clone."
+        set {ksp.d4c.clone:%player%} to "placed"
+        set {ksp.d4c.clone.location:%player%} to location of player
+      else if {ksp.d4c.clone:%player%} is "placed":
+        teleport the player to {ksp.d4c.clone.location:%player%}
+        broadcast "&b%player%'s D&d4&bC &8» &7Dojyaaaan~!"
+        set {ksp.d4c.clone:%player%} to "not placed"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% D4CCLONE on cooldown"
+        wait 60 seconds
+        send "{@prefix} Clone cooldown over."
+        execute console command "/ehelpop %player% D4CCLONE no longer on cooldown"
+
+command /d4clovetrain:
+  permission: ksp.d4c.holy
+  permission message: {@prefix} You need permission &fksp.d4c.holy&7 to use this command.
+  trigger:
+    if {ksp.infrotate:%player%} is not true:
+      broadcast "&b%player%'s D&d4&bC &8» &7Love Train!"
+      execute console command "/minecraft:effect give %player% regeneration 30 255 true"
+      execute console command "/minecraft:effect give %player% resistance 30 255 true"
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% D4CLOVETRAIN on cooldown"
+      wait 90 seconds
+      send "{@prefix} Love Train cooldown over."
+      execute console command "/ehelpop %player% D4CLOVETRAIN no longer on cooldown"
+
+
+#Ultimate Lifeform
+
+
+command /ulf:
+  permission: ksp.ulf
+  permission message: {@prefix} You need permission &fksp.ulf&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&b/ulfpiranha (target) &f- &bShoot a piranha at a target, poisoning them."
+    send "&b/ulfflight or /ulffly &f- &bGain flight for 30 seconds."
+    send "&b/ulfrush &f- &bSwift attacks."
+    send "&b/ulfsummon (mobname, ex: zombie) &f- &bCreates an entity out of nothing."
+    send "&b/ulfpassive &f- &bGives the user infinite fire and water breathing."
+    send "{@line}"
+
+command /ulfrush:
+  permission: ksp.ulf
+  permission message: {@prefix} You need permission &fksp.ulf&7 to use this command.
+  trigger:
+    execute console command "/minecraft:effect give %player% strength 5 1"
+    broadcast "{@prefix} %player% starts moving their arms quickly, blades of light slicing the air at insane speeds."
+    wait 5 seconds
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% ULFRUSH on cooldown"
+    wait 10 seconds
+    send "{@prefix} Light rush cooldown over."
+    execute console command "/ehelpop %player% ULFRUSH no longer on cooldown"
+
+command /ulfflight:
+  aliases: /ulffly
+  permission: ksp.ulf
+  permission message: {@prefix} You need permission &fksp.ulf&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      broadcast "&b%player% &8» &7As the Ultimate Lifeform, I can change my form to that of a winged mammal."
+      wait 1 second
+      execute console command "/efly %player% on"
+      send "{@prefix} 45 seconds of flight activated."
+      wait 5 seconds
+      send "{@prefix} 40 seconds remain."
+      wait 10 seconds
+      send "{@prefix} 30 seconds remain."
+      wait 10 seconds
+      send "{@prefix} 20 seconds remain."
+      wait 10 seconds
+      send "{@prefix} 10 seconds remain."
+      wait 5 seconds
+      send "{@prefix} 5 seconds remain."
+      wait 2 seconds
+      send "{@prefix} 3 seconds remain."
+      wait 1 second
+      send "{@prefix} 2 seconds remain."
+      wait 1 second
+      send "{@prefix} 1 second remains."
+      wait 1 second
+      broadcast "{@prefix} %player% drops out of the sky."
+      execute console command "/efly %player% off"
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% ULFFLIGHT on cooldown"
+      wait 35 seconds
+      send "{@prefix} Flight cooldown over."
+      execute console command "/ehelpop %player% ULFFLIGHT no longer on cooldown"
+
+command /ulfpiranha [<player>]:
+  permission: ksp.ulf
+  permission message: {@prefix} You need permission &fksp.ulf&7 to use this command.
+  trigger:
+    broadcast "&7%arg-1% &8» &7What the hell? A piranha?"
+    execute console command "/minecraft:effect give %arg-1% poison 10 1 true"
+    wait 10 seconds
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% ULFPIRANHA on cooldown"
+    wait 25 seconds
+    send "{@prefix} Piranha cooldown over."
+    execute console command "/ehelpop %player% ULFPIRANHA no longer on cooldown"
+
+command /ulfpassive:
+  permission: ksp.ulf
+  permission message: {@prefix} You need permission &fksp.ulf&7 to use this command.
+  trigger:
+    execute console command "/minecraft:effect give %player% fire_resistance 9999 255 true"
+    execute console command "/minecraft:effect give %player% water_breathing 9999 255 true"
+    send "{@prefix} Applied passive."
+
+command /ulfsummon [<text>]:
+  permission: ksp.ulf
+  permission message: {@prefix} You need permission &fksp.ulf&7 to use this command.
+  trigger:
+    if arg-1 is not set:
+      send "{@prefix} You need to specify a mob in one word to spawn in."
+      send "&c"
+      send "{@prefix} Showing mobs. (yes, some of these are blacklisted)"
+      send "&c"
+      send "{@prefix} snowman, panda, cow, furnaceminecart, pig, spawnerminecart, skeleton, llama, mule, bat, husk, zombiehorse, rabbit, silverfish, zombievillager, giant, drowned, enderdragon, dolphin, elderguardian, shulker, turtle, chestminecart, vex, salmon, ocelot, endercrystal, horse, vindicator, phantom, minecart, experienceorb, evoker, squid, parrot, creeper, cavespider, enderman, magmacube, chicken, ravager, hopperminecart, donkey, witherskeleton, strayskeleton, fox, slime, pillager, blaze, endermite, tropicalfish, cat, pigzombie, zombie, mushroomcow, irongolem, guardian, polarbear, traderllama, ghast, sheep, tntminecart, skeletonhorse, illusioner, pufferfish, wanderingtrader, armorstand, wolf, villager, boat, witch, cod, spider, wither"
+    else:
+      if arg-1 is "furnaceminecart":
+        send "{@prefix} Sorry, you just tried to do W H A T ?"
+        cancel event
+      else if arg-1 is "spawnerminecart":
+        send "{@prefix} Sorry, you just tried to do W H A T ?"
+        cancel event
+      else if arg-1 is "giant":
+        send "{@prefix} Sorry, you just tried to do W H A T ?"
+        cancel event
+      else if arg-1 is "enderdragon":
+        send "{@prefix} Sorry, you just tried to do W H A T ?"
+        cancel event
+      else if arg-1 is "chestminecart":
+        send "{@prefix} Sorry, you just tried to do W H A T ?"
+        cancel event
+      else if arg-1 is "endercrystal":
+        send "{@prefix} Sorry, you just tried to do W H A T ?"
+        cancel event
+      else if arg-1 is "minecart":
+        send "{@prefix} Sorry, you just tried to do W H A T ?"
+        cancel event
+      else if arg-1 is "experienceorb":
+        send "{@prefix} Sorry, you just tried to do W H A T ?"
+        cancel event
+      else if arg-1 is "armorstand":
+        send "{@prefix} Sorry, you just tried to do W H A T ?"
+        cancel event
+      else if arg-1 is "wither":
+        send "{@prefix} Sorry, you just tried to do W H A T ?"
+        cancel event
+      else:
+        execute console command "/spawnmob %arg-1% 1 %player%"
+        broadcast "{@prefix} One of %player%'s limbs transforms into a %arg-1%."
+        send "{@prefix} If it didn't work, too bad, we gave you a list of mobs if you just do /ulfsummon with no parameters."
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% ULFSUMMON on cooldown"
+        wait 60 seconds
+        send "{@prefix} Lifeform summon cooldown over."
+        execute console command "/ehelpop %player% ULFSUMMON no longer on cooldown"
+
+
+#Kars
+
+
+command /kars:
+  permission: ksp.kars
+  permission message: {@prefix} You need permission &fksp.kars&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&0/karslightstabs or /karsrush &f- &0Fast, quick attacks."
+    send "&0/karsslash (target) &f- &0Quick slash from nowhere."
+    send "&0/karsblind or /karsblindinglight (target) &f- &0Makes the enemy unable to move."
+    send "{@line}"
+
+command /karsrush:
+  aliases: /karslightstabs
+  permission: ksp.kars
+  permission message: {@prefix} You need permission &fksp.kars&7 to use this command.
+  trigger:
+    execute console command "/minecraft:effect give %player% strength 5 1"
+    broadcast "{@prefix} %player% starts moving their arms quickly, blades of light slicing the air at insane speeds."
+    wait 5 seconds
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% KARSRUSH on cooldown"
+    wait 10 seconds
+    send "{@prefix} Light rush cooldown over."
+    execute console command "/ehelpop %player% KARSRUSH no longer on cooldown"
+
+command /karsslash [<player>]:
+  permission: ksp.kars
+  permission message: {@prefix} You need permission &fksp.kars&7 to use this command.
+  trigger:
+    execute console command "/minecraft:effect give %arg-1% instant_damage 1 0 true"
+    broadcast "{@prefix} A blinding light would knock %player% out of view."
+    broadcast "{@prefix} 10 cuts would appear on %arg-1%'s arms."
+
+command karsblind [<player>]:
+  aliases: /karsblindinglight
+  permission: ksp.kars
+  permission message: {@prefix} You need permission &fksp.kars&7 to use this command.
+  trigger:
+    execute console command "/minecraft:effect give %arg-1% blindness 5 255 true"
+    send "{@prefix} A blinding light would be reflected off of %player%'s arm blades, blinding %arg-1%."
+
+
+#Vampire
+
+
+command /vamp:
+  permission: ksp.vamp
+  permission message: {@prefix} You need permission &fksp.vamp&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&c/vampbloodsteal &f- &cHit someone to take blood from your enemy and give it to you."
+    send "&c/vampstrike &f- &cHigher strength to strike your enemy 1 or 2 times."
+    send "&c/vampflashfreeze or /vampfreeze &f- &cHit someone to make the enemy unable to move for 5 seconds."
+    send "{@line}"
+
+command /vampbloodsteal:
+  permission: ksp.vamp
+  permission message: {@prefix} You need permission &fksp.vamp&7 to use this command.
+  trigger:
+    if arg-1 is not set:
+      send "{@prefix} You need to specify a person to steal blood from."
+    else:
+      send "{@prefix} Hit someone to heal from them."
+      set {ksp.vampire.bloodsteal.%player%} to true
+      wait 4 seconds
+      set {ksp.vampire.bloodsteal.%player%} to false
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% VAMPBLOODSTEAL on cooldown"
+      wait 30 seconds
+      send "{@prefix} Blood steal over."
+      execute console command "/ehelpop %player% VAMPBLOODSTEAL no longer on cooldown"
+
+on attack:
+  if {ksp.vampire.bloodsteal.%attacker%} is true:
+    broadcast "{@prefix} %player% steals blood from %arg-1% and draws it in to regenerate themself."
+    execute console command "/minecraft:effect give %player% regeneration 4 2 true"
+    execute console command "/minecraft:effect give %arg-1% poison 4 2 true"
+    execute console command "/minecraft:effect give %player% slowness 4 255 true"
+    execute console command "/minecraft:effect give %arg-1% slowness 4 255 true"
+    execute console command "/minecraft:effect give %player% resistance 4 255 true"
+    execute console command "/minecraft:effect give %arg-1% resistance 4 255 true"
+    set {ksp.vampire.bloodsteal.%attacker%} to false
+
+command /vampstrike:
+  permission: ksp.vamp
+  permission message: {@prefix} You need permission &fksp.vamp&7 to use this command.
+  trigger:
+    broadcast "&c%player% &8» &7Shinei!"
+    execute console command "/minecraft:effect give %player% strength 2 0"
+    wait 2 seconds
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% VAMPSTRIKE on cooldown"
+    wait 10 seconds
+    send "{@prefix} Strike cooldown over."
+    execute console command "/ehelpop %player% VAMPSTRIKE no longer on cooldown"
+
+command /vampflashfreeze:
+  aliases: /vampfreeze
+  permission: ksp.vamp
+  permission message: {@prefix} You need permission &fksp.vamp&7 to use this command.
+  trigger:
+    if arg-1 is not set:
+      send "{@prefix} You need to specify a player to freeze."
+    else:
+      broadcast "&c%player% &8» &7HINJAKU HINJAKU!"
+      set {ksp.vampire.flashfreeze.%player%} to true
+      send "{@prefix} Hit someone to freeze them!"
+      wait 5 seconds
+      set {ksp.vampire.flashfreeze.%player%} to false
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% VAMPFLASHFREEZE on cooldown"
+      wait 30 seconds
+      send "{@prefix} Flash freeze cooldown over."
+      execute console command "/ehelpop %player% VAMPFLASHFREEZE no longer on cooldown"
+
+on damage:
+  if {ksp.vampire.flashfreeze.%attacker%} is true:
+    execute console command "/minecraft:effect give %victim% weakness 5 255 true"
+    execute console command "/minecraft:effect give %victim% jump_boost 5 128 true"
+    execute console command "/minecraft:effect give %victim% slowness 5 255 true"
+    set {ksp.vampire.flashfreeze.%attacker%} to false
+
+
+#Killer Queen
+
+
+command /kq:
+  permission: ksp.kq
+  permission message: {@prefix} You need permission &fksp.kq&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&d/kqrush or /kqshibuba &f- &dSHIBUBUBUBUBUBUBUBUBUBUBA!"
+    send "&d/kq1 or /kqbomb (target) &f- &dPlace a bomb and allow detonation at any time by executing the command again."
+    send "&d/kqsha or /kqsheerheartattack (target) &f- &dSpawn a creeper on the enemy."
+    send "&d"
+    send "&dRequiem Abilities"
+    send "&d/kqbtd or /kqthird (target) &f- Protect the person. Execute the command again to detonate it and damage everyone on the map, even mobs. This will not harm the person it was planted on."
+    send "{@line}"
+
+command /kqrush:
+  aliases: /kqshibuba
+  permission: ksp.kq
+  permission message: {@prefix} You need permission &fksp.kq&7 to use this command.
+  trigger:
+    execute console command "/minecraft:effect give %player% strength 5 1"
+    broadcast "&d%player%'s Killer Queen &8» &7SHIBUBUBUBUBUBUBA!"
+    wait 5 seconds
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% KQRUSH on cooldown"
+    wait 10 seconds
+    send "{@prefix} Stand rush cooldown over."
+    execute console command "/ehelpop %player% KQRUSH no longer on cooldown"
+
+command /kq1 [<player>]:
+  aliases: /kqbomb
+  permission: ksp.kq
+  permission message: {@prefix} You need permission &fksp.kq&7 to use this command.
+  trigger:
+    if arg-1 is not set:
+      send "{@prefix} Specify a person to plant/detonate the bomb on."
+    else:
+      if {ksp.kq.firstbomb.%player%:%arg-1%} is "true":
+        broadcast "&d%player%'s Killer Queen &8» &7Tenker!"
+        execute console command "/minecraft:effect give %arg-1% instant_damage 1 1 true"
+        set {ksp.kq.firstbomb.%player%:arg-1%} to "false"
+      else:
+        broadcast "&d%player%'s Killer Queen &8» &7The first bomb!"
+        set {ksp.kq.firstbomb.%player%:%arg-1%} to "true"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% KQFIRSTBOMB on cooldown"
+        wait 20 seconds
+        send "{@prefix} First bomb cooldown over."
+        execute console command "/ehelpop %player% KQFIRSTBOMB no longer on cooldown"
+
+command /kqsha [<player>]:
+  aliases: /kqsheerheartattack
+  permission: ksp.kq
+  permission message: {@prefix} You need permission &fksp.kq&7 to use this command.
+  trigger:
+    if arg-1 is not set:
+      send "{@prefix} Specify a person to attack with the sheer heart attack."
+    else:
+      send "&d%player%'s Killer Queen &8» &7Sheer heart attack!"
+      send "&cKSP &8» &c&lWATCH OUT, SHEER HEART ATTACK - GET OUT OF ANY BUILDINGS OR CLOSED SPACES YOU DON'T WANT TO BE BLOWN UP"
+      send "&cKSP &8» &c&lWATCH OUT, SHEER HEART ATTACK - GET OUT OF ANY BUILDINGS OR CLOSED SPACES YOU DON'T WANT TO BE BLOWN UP"
+      send "&cKSP &8» &c&lWATCH OUT, SHEER HEART ATTACK - GET OUT OF ANY BUILDINGS OR CLOSED SPACES YOU DON'T WANT TO BE BLOWN UP"
+      wait 5 seconds
+      broadcast "&1%player%'s Sheer Heart Attack &8» &7Look over here."
+      execute console command "/spawnmob creeper 1 %arg-1%"
+
+command /kqbtd [<player>]:
+  aliases: /kqthird
+  permission: ksp.kq.requiem
+  permission message: {@prefix} You need permission &fksp.kq.requiem&7 to use this command.
+  trigger:
+    if arg-1 is not set:
+      send "{@prefix} You need to specify a person to plant Bites the Dust on."
+    else:
+      if {ksp.kq.thirdbomb.%player%:%arg-1%} is "true":
+        broadcast "&d%player%'s Killer Queen &8» &7BITES ZA DUSTO!"
+        execute console command "/minecraft:effect give @e blindness 2 255 true"
+        wait 1 second
+        broadcast "&d%player%'s Killer Queen &8» &7YES! I'VE DONE IT! I'VE WON!"
+        loop all players:
+          teleport loop-player to {ksp.kq.thirdbomb.coordinates.%loop-player%}
+        execute console command "/minecraft:effect give %player% saturation 1 255 true"
+        execute console command "/minecraft:effect give %player% regeneration 5 255 true"
+        execute console command "/minecraft:effect give %arg-1% saturation 1 255 true"
+        execute console command "/minecraft:effect give %arg-1% regeneration 5 255 true"
+        execute console command "/minecraft:effect give @a instant_damage 1 1 true"
+        set {ksp.kq.thirdbomb.%player%:%arg-1%} to "false"
+      else:
+        broadcast "&d%player%'s Killer Queen &8» &7The third bomb!"
+        set {ksp.kq.thirdbomb.%player%:%arg-1%} to "true"
+        send "{@prefix} %player%'s Killer Queen came into contact with your skin, planting the third bomb, Bites the Dust." to arg 1
+        loop all players:
+          set {ksp.kq.thirdbomb.coordinates.%loop-player%} to location of player
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% KQBTD on cooldown"
+        wait 120 seconds
+        send "{@prefix} Third bomb cooldown over."
+        execute console command "/ehelpop %player% KQBTD no longer on cooldown"
+
+
+#Whitesnake
+
+
+command /ws:
+  permission: ksp.ws
+  permission message: {@prefix} You need permission &fksp.ws&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&f/wschop - USSSHHAAAAAAA . . ."
+    send "&f/wsstand (target) - Temporarily make your enemy unable to attack. 1/3 chance."
+    send "&f/wsmemory (target) - Temporarily make your enemy unable to see, can barely move, and enemy's attacks slower. 1/3 chance."
+    send "&f/wsacid (target) - Temporarily make your enemy unable to see."
+    send "&f"
+    send "&fBoth the memory steal and stand steal have cooldowns together. Their cooldowns are connected."
+    send "{@line}"
+
+command /wschop:
+  permission: ksp.ws
+  permission message: {@prefix} You need permsision &fksp.ws&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&f%player%'s Whitesnake &8» &7Uoshhhaaaaaaaa . . ."
+        execute console command "/minecraft:effect give %player% strength 3 2"
+        wait 2 seconds
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% WSCHOP on cooldown"
+        wait 10 seconds
+        send "{@prefix} Chop cooldown over."
+        execute console command "/ehelpop %player% WSCHOP no longer on cooldown"
+
+command /stealtest [<player>]:
+  permission: ksp.admin
+  permission message: {@prefix} You need permission &fksp.admin&7 to use this command.
+  trigger:
+    broadcast "&f%player%'s Whitesnake &8» &7Uoshhhaaaaaaaa . . ."
+    set {ksp.ws.steal.%player%} to "%random number from 1 to 3%"
+    wait 1 second
+    if {ksp.ws.steal.%player%} is "1":
+      broadcast "&f%player%'s Whitesnake &8» &7DISK!"
+      execute console command "/minecraft:effect give %arg-1% weakness 10 255 true"
+      send "&cKSP &8» &c&lDo not cancel this with milk or by using ts movement. &7If you are GER, you can use rtz2 to cancel it." to arg 1
+      broadcast "{@prefix} %player%'s Whitesnake reaches forward and takes %arg-1%'s stand disk."
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% WSSTEAL on cooldown"
+      wait 45 seconds
+      send "{@prefix} Steal cooldown over."
+      execute console command "/ehelpop %player% WSSTEAL no longer on cooldown"
+    else:
+      broadcast "{@prefix} %player%'s attack misses."
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% WSSTEAL on cooldown"
+      wait 45 seconds
+      send "{@prefix} Steal cooldown over."
+      execute console command "/ehelpop %player% WSSTEAL no longer on cooldown"
+
+command /wsstand [<player>]:
+  permission: ksp.ws
+  permission message: {@prefix} You need permission &fksp.ws&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&f%player%'s Whitesnake &8» &7Uoshhhaaaaaaaa . . ."
+        wait 2 seconds
+        broadcast "&f%player%'s Whitesnake &8» &7DISK!"
+        set {ksp.ws.stolen.%arg-1%} to true
+        send "{@prefix} Your stand was stolen for 25 seconds by %player%." to arg 1
+        broadcast "{@prefix} %player%'s Whitesnake reaches forward and takes %arg-1%'s stand disk."
+        wait 25 seconds
+        set {ksp.ws.stolen.%arg-1%} to false
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% WSSTEAL on cooldown"
+        wait 50 seconds
+        send "{@prefix} Steal cooldown over."
+        execute console command "/ehelpop %player% WSSTEAL no longer on cooldown"
+
+command /wsmemory [<player>]:
+  permission: ksp.ws
+  permission message: {@prefix} You need permission &fksp.ws&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&f%player%'s Whitesnake &8» &7Uoshhhaaaaaaaa . . ."
+        wait 2 seconds
+        broadcast "&f%player%'s Whitesnake &8» &7DISK!"
+        execute console command "/minecraft:effect give %arg-1% mining_fatigue 10 2 true"
+        execute console command "/minecraft:effect give %arg-1% slowness 10 3 true"
+        execute console command "/minecraft:effect give %arg-1% blindness 10 255 true"
+        broadcast "{@prefix} %player%'s Whitesnake reaches forward and takes %arg-1%'s memory disk."
+        send "&cKSP &8» &c&lDo not cancel this with milk or by using ts movement. &7If you are GER, you can use rtz2 to cancel it." to arg 1
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% WSSTEAL on cooldown"
+        wait 45 seconds
+        send "{@prefix} Steal cooldown over."
+        execute console command "/ehelpop %player% WSSTEAL no longer on cooldown"
+
+command /wsacid [<player>]:
+  permission: ksp.ws
+  permission message: {@prefix} You need permission &fksp.ws&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&f%player%'s Whitesnake &8» &7Uoshhhaaaaaaaa . . ."
+        execute console command "/minecraft:effect give %arg-1% blindness 10 255 true"
+        broadcast "{@prefix} %player%'s &fWhitesnake &7spits acid at %arg-1%, blinding them."
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% WSACID on cooldown"
+        wait 25 seconds
+        send "{@prefix} Acid spit cooldown over."
+        execute console command "/ehelpop %player% WSACID no longer on cooldown"
+
+
+#Joseph Hamon
+
+
+command /josephh:
+  permission: ksp.josephh
+  permission message: {@prefix} You need permission &fksp.josephh&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&2/josephvolley &f- &2Clacker volley!"
+    send "&2/josephspeak or /josephtrick (target) &f- &2Throw the enemy off balance and enhance your strength, weaken and slow the enemy."
+    send "&2/josephnigerundayo or /josephjoestartechnique or /josephrun &f- &2The secret Joestar technique... NIGGGGEEEERRRRRRUNDAAYYYYOOOOO"
+    send "&2/josephgrenade or /josephnade (target) &f- &2Place a grenade on the enemy to be activated 7 seconds later."
+    send "{@line}"
+
+command /josephvolley:
+  permission: ksp.josephh
+  permission message: {@prefix} You need permission &fksp.josephh&7 to use this command.
+  trigger:
+    execute console command "/minecraft:effect give %player% strength 4 0"
+    broadcast "&2%player% &8» &7CLACKER VOLLEY!"
+    wait 4 seconds
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% JOSEPHVOLLEY on cooldown"
+    wait 10 seconds
+    send "{@prefix} Clacker volley cooldown over."
+    execute console command "/ehelpop %player% JOSEPHVOLLEY no longer on cooldown"
+
+command /josephspeak [<player>]:
+  aliases: /josephtrick
+  permission: ksp.josephh
+  permission message: {@prefix} You need permission &fksp.josephh&7 to use this command.
+  trigger:
+    broadcast "&2%player% &8» &7Sugi ni omae wa... 'I won't fall for that,' to iu!"
+    execute console command "/minecraft:effect give %player% strength 5 1 true"
+    execute console command "/minecraft:effect give %arg-1% slowness 5 1 true"
+    execute console command "/minecraft:effect give %arg-1% weakness 5 1 true"
+    execute console command "/minecraft:effect give %arg-1% mining_fatigue 5 1 true"
+    wait 1 second
+    broadcast "&7%arg-1% &8» &7I won't fall for that!"
+    broadcast "&7%arg-1% &8» &7OOOOHHHH MYYYYYY GOOOOOODDDDD!"
+    wait 4 seconds
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% JOSEPHSPEAK on cooldown"
+    wait 10 seconds
+    send "{@prefix} Trick cooldown over."
+    execute console command "/ehelpop %player% JOSEPHSPEAK no longer on cooldown"
+
+command /josephnigerundayo:
+  aliases: /josephrun, /josephjoestartechnique
+  permission: ksp.josephh
+  permission message: {@prefix} You need permission &fksp.josephh&7 to use this command.
+  trigger:
+    execute console command "/minecraft:effect give %player% speed 15 2 true"
+    execute console command "/minecraft:effect give %player% weakness 15 255 true"
+    broadcast "&2%player% &8» &7NIGERUNDAYO!"
+    wait 15 seconds
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% JOSEPHRUN on cooldown"
+    wait 45 seconds
+    send "{@prefix} Run cooldown over."
+    execute console command "/ehelpop %player% JOSEPHRUN no longer on cooldown"
+
+command /josephgrenade [<player>]:
+  aliases: /josephnade
+  permission: ksp.josephh
+  permission message: {@prefix} You need permission &fksp.josephh&7 to use this command.
+  trigger:
+    send "{@prefix} Placed grenades."
+    wait 4 seconds
+    broadcast "&7%player% &8» &7What the hell? A grenade? When the hell did that get there?"
+    wait 1 second
+    broadcast "&2%player% &8» &7Look again!"
+    wait 2 seconds
+    broadcast "&7%player% &8» &7WHAT THE HELL! WHEN DID ALL THESE GRENA--- AAAAAAGGGGHHH!"
+    execute console command "/minecraft:effect give %arg-1% instant_damage 1 1 true"
+
+
+#Johnathan Hamon
+
+
+command /jojoh:
+  permission: ksp.jojoh
+  permission message: {@prefix} You need permission &fksp.jojoh&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&1/jojohsyo or /jojohsunlightoverdrive &f- &1SUNLIGHT... YELLOW... OVERDRIVE! Pretty much a weaker stand rush."
+    send "&1/jojohscarletoverdrive or /jojoscarlet or /jojoso &f- &1One to two high damage output punches."
+    send "&1/jojohzoom or /jojohzoompunch (target) &f- &1Dislocate your arm and punch your enemy quickly."
+    send "&1/jojohbreathe or /jojohhamonbreathe &f- &1Regenerate faster, higher damage output, less damage input."
+    send "{@line}"
+
+command /jojohsyo:
+  aliases: /jojohsunlightoverdrive
+  permission: ksp.jojoh
+  permission message: {@prefix} You need permission &fksp.jojoh&7 to use this command.
+  trigger:
+    execute console command "/minecraft:effect give %player% strength 4 1"
+    broadcast "&1%player% &8» &7SUNLIGHT... YELLOW... OVERDRIVE...!"
+    wait 4 seconds
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% JOJOHSYO on cooldown"
+    wait 10 seconds
+    send "{@prefix} Sunlight yellow overdrive cooldown over."
+    execute console command "/ehelpop %player% JOJOHSYO no longer on cooldown"
+
+command /jojohscarletoverdrive:
+  aliases: /jojohso, /jojohscarlet
+  permission: ksp.jojoh
+  permission message: {@prefix} You need permission &fksp.jojoh&7 to use this command.
+  trigger:
+    execute console command "/minecraft:effect give %player% strength 2 2 true"
+    broadcast "&1%player% &8» &7SCARLET OVERDRIVE!"
+    wait 2 seconds
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% JOJOHSO on cooldown"
+    wait 10 seconds
+    send "{@prefix} Scarlet overdrive cooldown over."
+    execute console command "/ehelpop %player% JOJOHSO no longer on cooldown"
+
+command /jojohzoompunch [<player>]:
+  aliases: /jojohzoom
+  permission: ksp.jojoh
+  permission message: {@prefix} You need permission &fksp.jojoh&7 to use this command.
+  trigger:
+    broadcast "&1%player% &8» &7ZOOM PUNCH!"
+    execute console command "/minecraft:effect give %arg-1% instant_damage 1 0 true"
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% JOJOHZOOMPUNCH on cooldown"
+    wait 30 seconds
+    send "{@prefix} Zoom punch cooldown over."
+    execute console command "/ehelpop %player% JOJOHZOOMPUNCH no longer on cooldown"
+
+command /jojohbreathe:
+  aliases: /jojohhamonbreathe
+  permission: ksp.jojoh
+  permission message: {@prefix} You need permission &fksp.jojoh&7 to use this command.
+  trigger:
+    broadcast "{@prefix} %player% steps back and breathes."
+    execute console command "/minecraft:effect give %player% strength 5 0 true"
+    execute console command "/minecraft:effect give %player% resistance 5 0 true"
+    execute console command "/minecraft:effect give %player% regeneration 5 1 true"
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% JOJOHBREATHE on cooldown"
+    wait 25 seconds
+    send "{@prefix} Breathing cooldown over."
+    execute console command "/ehelpop %player% JOJOHBREATHE no longer on cooldown"
+
+
+#Tusk Act 3
+
+
+command /t3:
+  permission: ksp.t3
+  permission message: {@prefix} You need permission &fksp.t3&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&d/t3nail &f- &dGolden ranged Tusk nail attack."
+    send "&d/t3wormhole &f- &dStronger, slowing, golden rectangle nail attack."
+    send "&d/t3chimimi or /t3glide &f- &dI have to get there!"
+    send "{@line}"
+
+command /t3nail [<player>]:
+  permission: ksp.t3
+  permission message: {@prefix} You need permission &fksp.t3&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&d%player%'s Tusk Act 3 &8» &7Chimimi~in!"
+        execute console command "/minecraft:effect give %arg-1% instant_damage 1 1 true"
+
+command /t3wormhole [<player>]:
+  permission: ksp.t3
+  permission message: {@prefix} You need permission &fksp.t3&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&d%player%'s Tusk Act 3 &8» &7Chimimi~in!"
+        execute console command "/minecraft:effect give %arg-1% instant_damage 1 1 true"
+        execute console command "/minecraft:effect give %arg-1% slowness 10 2 true"
+
+command /t3chimimi:
+  aliases: /t3glide
+  permission: ksp.t3
+  permission message: {@prefix} You need permsision &fksp.t3&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        execute console command "/minecraft:effect give %player% speed 15 4 true"
+        execute console command "/minecraft:effect give %player% weakness 15 255 true"
+        broadcast "&d%player%'s Tusk Act 3 &8» &7I have to get there!"
+        wait 4 seconds
+        broadcast "&d%player%'s Tusk Act 3 &8» &7Chimimi~un!"
+        wait 11 seconds
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% T3CHIMIMI on cooldown"
+        wait 45 seconds
+        send "{@prefix} Chimimi cooldown over."
+        execute console command "/ehelpop %player% T3CHIMIMI no longer on cooldown"
+
+
+#Tusk Act 2
+
+
+command /t2:
+  permission: ksp.t2
+  permission message: {@prefix} You need permission &fksp.t2&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&d/t2nail &f- &dGolden ranged Tusk nail attack."
+    send "&d/t2chimimi or /t2glide &f- &dI have to get there!"
+    send "{@line}"
+
+command /t2nail [<player>]:
+  permission: ksp.t2
+  permission message: {@prefix} You need permission &fksp.t2&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&d%player%'s Tusk Act 2 &8» &7Chimimi~in!"
+        execute console command "/minecraft:effect give %arg-1% instant_damage 1 1 true"
+
+command /t2chimimi:
+  aliases: /t2glide
+  permission: ksp.t2
+  permission message: {@prefix} You need permsision &fksp.t2&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        execute console command "/minecraft:effect give %player% speed 15 4 true"
+        execute console command "/minecraft:effect give %player% weakness 15 255 true"
+        broadcast "&d%player%'s Tusk Act 2 &8» &7I have to get there!"
+        wait 4 seconds
+        broadcast "&d%player%'s Tusk Act 2 &8» &7Chimimi~un!"
+        wait 11 seconds
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% T2CHIMIMI on cooldown"
+        wait 45 seconds
+        send "{@prefix} Chimimi cooldown over."
+        execute console command "/ehelpop %player% T2CHIMIMI no longer on cooldown"
+
+
+#Tusk Act 1
+
+
+command /t1:
+  permission: ksp.t1
+  permission message: {@prefix} You need permission &fksp.t1&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&d/t1nail &f- &dStandard stand ranged nail attack."
+    send "&d/t1chimimi or /t1glide &f- &dI have to get there!"
+    send "{@line}"
+
+command /t1nail [<player>]:
+  permission: ksp.t1
+  permission message: {@prefix} You need permission &fksp.t1&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&d%player%'s Tusk Act 1 &8» &7Chimimi~in!"
+        execute console command "/minecraft:effect give %arg-1% instant_damage 1 0 true"
+
+command /t1chimimi:
+  aliases: /t1glide
+  permission: ksp.t1
+  permission message: {@prefix} You need permsision &fksp.t1&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        execute console command "/minecraft:effect give %player% speed 15 4 true"
+        execute console command "/minecraft:effect give %player% weakness 15 255 true"
+        broadcast "&d%player%'s Tusk Act 1 &8» &7I have to get there!"
+        wait 4 seconds
+        broadcast "&d%player%'s Tusk Act 1 &8» &7Chimimi~un!"
+        wait 11 seconds
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% T1CHIMIMI on cooldown"
+        wait 45 seconds
+        send "{@prefix} Chimimi cooldown over."
+        execute console command "/ehelpop %player% T1CHIMIMI no longer on cooldown"
+
+
+#Tusk Act 4
+
+
+command /t4:
+  permission: ksp.t4
+  permission message: {@prefix} You need permission &fksp.t4&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&d/t4rush or /t4ora &f- &dStand barrage."
+    send "&d/t4chimimi or /t4glide &f- &cHigh speeds with no defense or attack for a few seconds."
+    send "&d/t4rotate or /t4rotation (target) &f- &dThe power of the infinite rotation!"
+    send "{@line}"
+
+command /t4rush:
+  aliases: /t4ora
+  permission: ksp.t4
+  permission message: {@prefix} You need permission &fksp.t4&7 to use this command.
+  trigger:
+    if {ksp.ws.stolen.%player%} is not true:
+      execute console command "/minecraft:effect give %player% strength 5 2"
+      broadcast "&d%player%'s Tusk Act 4 &8» &7ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA!"
+      wait 5 seconds
+      broadcast "&d%player%'s Tusk Act 4 &8» &7ORA ORA ORA ORA!"
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% T4RUSH on cooldown"
+      wait 10 seconds
+      send "{@prefix} Stand rush cooldown over."
+      execute console command "/ehelpop %player% T4RUSH no longer on cooldown"
+
+command /t4chimimi:
+  aliases: /t4glide
+  permission: ksp.t4
+  permission message: {@prefix} You need permsision &fksp.t4&7 to use this command.
+  trigger:
+    if {ksp.ws.stolen.%player%} is not true:
+      execute console command "/minecraft:effect give %player% speed 15 7 true"
+      execute console command "/minecraft:effect give %player% weakness 15 255 true"
+      broadcast "&d%player%'s Tusk Act 4 &8» &7Chimimi~un!"
+      wait 15 seconds
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% T4CHIMIMI on cooldown"
+      wait 45 seconds
+      send "{@prefix} Chimimi cooldown over."
+      execute console command "/ehelpop %player% T4CHIMIMI no longer on cooldown"
+
+#command /t4move:
+#  permission: ksp.t4
+#  permission message: {@prefix} You need permission &fksp.t4&7 to use this command.
+#  trigger:
+#    execute console command "/minecraft:effect clear %player%"
+#    send "{@prefix} Actu 4 starts moving."
+
+command /t4rotation [<player>]:
+  aliases: /t4rotate
+  permission: ksp.t4
+  permission message: {@prefix} You need permission &fksp.t4&7 to use this command.
+  trigger:
+    if {ksp.ws.stolen.%player%} is not true:
+      if {ksp.d4c.lovetrain:%player%} is "active":
+        execute console command "/minecraft:effect clear %arg-1%"
+        send "&cKSP &8» &c&l%player% BROKE THROUGH LOVE TRAIN WITH INFINITE ROTATION"
+        send "&cKSP &8» &c&lDo not cancel this with milk or by using ts movement. &7If you are GER, you can use rtz2 to cancel it." to arg 1
+        send "&c&lYOU NEED TO GET THE FUCK OUT OF THERE, INFINITE SPIN INCOMING" to arg 1
+        broadcast "&d%player%'s Tusk Act 4 &8» &7ACTU 4!"
+        set {ksp.infrotate:%arg-1%} to "true"
+        wait 2 second
+        send "{@prefix} The nail imbued with Infinity connects with %arg-1%." to player
+        send "{@prefix} The nail imbued with Infinity connects with you." to arg 1
+        broadcast "&d%player%'s Tusk Act 4 &8» &7ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA!"
+        execute console command "/minecraft:effect give %arg-1% poison 60 255 true"
+        execute console command "/minecraft:effect give %arg-1% slowness 60 1 true"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% T4ROTATE on cooldown"
+        wait 60 seconds
+        set {ksp.infrotate:%arg-1%} to "false"
+        wait 30 seconds
+        send "{@prefix} Infinite Rotation cooldown over."
+        execute console command "/ehelpop %player% T4ROTATE no longer on cooldown"
+      else:
+        send "&cKSP &8» &c&lDo not cancel this with milk or by using ts movement. &7If you are GER, you can use rtz2 to cancel it." to arg 1
+        send "&c&lYOU NEED TO GET THE FUCK OUT OF THERE, INFINITE SPIN INCOMING" to arg 1
+        broadcast "&d%player%'s Tusk Act 4 &8» &7ACTU 4!"
+        set {ksp.infrotate:%arg-1%} to "true"
+        wait 2 second
+        send "{@prefix} The nail imbued with Infinity connects with %arg-1%." to player
+        send "{@prefix} The nail imbued with Infinity connects with you." to arg 1
+        broadcast "&d%player%'s Tusk Act 4 &8» &7ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA!"
+        execute console command "/minecraft:effect give %arg-1% poison 60 255 true"
+        execute console command "/minecraft:effect give %arg-1% slowness 60 1 true"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% T4ROTATE on cooldown"
+        wait 60 seconds
+        set {ksp.infrotate:%arg-1%} to "false"
+        wait 30 seconds
+        send "{@prefix} Infinite Rotation cooldown over."
+        execute console command "/ehelpop %player% T4ROTATE no longer on cooldown"
+
+
+#King Crimson
+
+
+command /kc:
+  permission: ksp.kc
+  permission message: {@prefix} You need permission &fksp.kc&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&c/kcchop &f- &cHeavy attack."
+    send "&c/kcepitaph &f- &cIncreases defense."
+    send "&c/kctimeerase or /kcte &f- &cSkip 10 seconds of time, allowing for extreme damage and strategic placement."
+    send "{@line}"
+
+command /kcchop:
+  permission: ksp.kc
+  permission message: {@prefix} You need permission &fksp.kc&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&c%player%'s King Crimson &8» &7King Crimson!"
+        execute console command "/minecraft:effect give %player% strength 3 3"
+        wait 2 seconds
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% KCCHOP on cooldown"
+        wait 20 seconds
+        send "{@prefix} Chop cooldown over."
+        execute console command "/ehelpop %player% KCCHOP no longer on cooldown"
+
+command /kcepitaph:
+  permission: ksp.kc
+  permission message: {@prefix} You need permission &fksp.kc&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&c%player%'s King Crimson &8» &7Epitaph . . ."
+        set {ksp.kc.epitaph.%player%} to true
+        wait 7 seconds
+        set {ksp.kc.epitaph.%player%} to false
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% KCEPITAPH on cooldown"
+        wait 60 seconds
+        send "{@prefix} Epitaph cooldown over."
+        execute console command "/ehelpop %player% KCEPITAPH no longer on cooldown"
+
+on damage:
+  if {ksp.kc.epitaph.%victim%} is true:
+    if attacker is a player:
+      if victim is a player:
+        send "{@prefix} %victim% dodged your attack." to attacker
+        cancel event
+
+command /kcte:
+  aliases: /kcte
+  permission: ksp.kc
+  permission message: {@prefix} You need permission &fksp.tc&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        execute console command "/minecraft:effect clear %player%"
+        broadcast "&c%player%'s King Crimson &8» &7Kingu Kirimuzon!"
+        send "{@prefix} Punch someone to damage them with time erase."
+        execute console command "/minecraft:effect give %player% speed 10 1 true"
+        execute console command "/minecraft:effect give %player% resistance 10 255 true"
+        execute console command "/minecraft:effect give %player% invisibility 10 255 true"
+        set {ksp.te.%player%} to true
+        wait 10 seconds
+        set {ksp.te.%player%} to false
+        if {ksp.te.erasure.%player%} is true:
+          broadcast "&c%player%'s King Crimson &8» &7Kingu Kirimuzon no noruyuku..."
+          loop all players:
+            if {ksp.te.erased.%loop-player%} is true:
+              execute console command "/minecraft:effect give %loop-player% instant_damage 1 2 true"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% KCTIMEERASE on cooldown"
+        wait 180 seconds
+        send "{@prefix} Time erase cooldown over."
+        execute console command "/ehelpop %player% KCTIMEERASE no longer on cooldown"
+
+on damage:
+  if {ksp.te.%attacker%} is true:
+    cancel event
+    set {ksp.te.erasure.%attacker%} to true
+    set {ksp.te.erased.%victim%} to true
+    wait 11 seconds
+    set {ksp.te.%attacker%} to false
+    set {ksp.te.erasure.%attacker%} to false
+    set {ksp.te.erased.%victim%} to false
+
+command /kctimeeraseold:
+  aliases: /kcteold
+  permission: ksp.admin
+  permission message: {@prefix} You need permission &fksp.kc&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        execute console command "/minecraft:effect clear %player%"
+        broadcast "&c%player%'s King Crimson &8» &7Kingu Kirimuzon!"
+        send "{@prefix} You cannot attack, but prepare to attack."
+        execute console command "/minecraft:effect give %player% speed 10 1 true"
+        execute console command "/minecraft:effect give %player% weakness 10 255 true"
+        execute console command "/minecraft:effect give %player% resistance 10 255 true"
+        execute console command "/minecraft:effect give %player% invisibility 10 255 true"
+        wait 9 seconds
+        send "{@prefix} 1 SECOND, GET READY FOR ATTACK!"
+        execute console command "/minecraft:effect give @e slowness 2 2 true"
+        execute console command "/minecraft:effect clear %player%"
+        execute console command "/minecraft:effect give %player% strength 2 5 true"
+        send "{@prefix} Attack!"
+        send 2 seconds
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% KCTIMEERASE on cooldown"
+        wait 180 seconds
+        send "{@prefix} Time erase cooldown over."
+        execute console command "/ehelpop %player% KCTIMEERASE no longer on cooldown"
+
+
+#Made In Heaven
+
+
+command /mih:
+  permission: ksp.mih
+  permission message: {@prefix} You need permission &fksp.mih&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&f/mihchop - Heavy attack."
+    send "&f/mihtimeaccelerate or /mihta - Slows everyone else down, even someone who stopped time "
+    send "&f/mihmove - Speeds up the user insanely fast."
+    send "{@line}"
+
+command /mihchop:
+  permission: ksp.mih
+  permission message: {@prefix} You need permission &fksp.mih&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&f%player%'s Made In Heaven &8» &7Uoshhhaaaaaaaa . . ."
+        execute console command "/minecraft:effect give %player% strength 3 3"
+        wait 2 seconds
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% MIHCHOP on cooldown"
+        wait 25 seconds
+        send "{@prefix} Chop cooldown over."
+        execute console command "/ehelpop %player% MIHCHOP no longer on cooldown"
+
+command /mihtimeaccelerate:
+  aliases: /mihta
+  permission: ksp.mih
+  permission message: {@prefix} You need permission &fksp.mih&7 to use this command.
+  trigger:
+    if {ksp.ws.stolen.%player%} is not true:
+      broadcast "&f%player%'s Made In Heaven &8» &7Meido in Hebun!"
+      execute console command "/minecraft:effect give @e slowness 12 3 true"
+      execute console command "/minecraft:effect give @e mining_fatigue 12 4 true"
+      execute console command "/minecraft:effect give @e slowness 12 3 true"
+      execute console command "/minecraft:effect clear %player%"
+      execute console command "/minecraft:effect give %player% speed 12 3 true"
+      execute console command "/minecraft:effect give %player% haste 12 3 true"
+      wait 12 seconds
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% MIHTIMEACCELERATE on cooldown"
+      wait 120 seconds
+      send "{@prefix} Time accelerate cooldown over."
+      execute console command "/ehelpop %player% MIHTIMEACCELERATE no longer on cooldown"
+
+command /mihmove:
+  permission: ksp.mih
+  permission message: {@prefix} You need permission &fksp.mih&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        send "{@prefix} Gas, gas! I'm gonna step on the gas tonight!"
+        execute console command "/minecraft:effect give %player% speed 15 20 true"
+        execute console command "/minecraft:effect give %player% haste 15 3 true"
+        wait 15 seconds
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% MIHMOVE on cooldown"
+        wait 45 seconds
+        send "{@prefix} MiH movement cooldown over."
+        execute console command "/ehelpop %player% MIHMOVE no longer on cooldown"
+
+
+#Weather Report
+
+
+command /wr:
+  permission: ksp.wr
+  permission message: {@prefix} You need permission &fksp.wr&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&f/wrstorm - Conjures up a storm for 2 minutes."
+    send "&f/wrsun - Reveals the sun during a storm."
+    send "&f/wrstormstrike - Send an immediate lightning bolt."
+    send "&f/wrstrikebarrage - Send 3 bolts at the cursor."
+    send "{@line}"
+
+command /wrsun:
+  permission: ksp.wr
+  permission message: {@prefix} You need permission &fksp.wr&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&f%player%'s Weather Report &8» &7Let the sun be shown again."
+        execute console command "/weather world sun"
+
+command /wrstorm:
+  permission: ksp.wr
+  permission message: {@prefix} You need permission &fksp.wr&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "{@prefix} Clouds begin rolling in."
+        execute console command "/weather world storm 120"
+        wait 120 seconds
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% WRSTORM on cooldown"
+        wait 300 seconds
+        send "{@prefix} Storm mode cooldown over."
+        execute console command "/ehelpop %player% WRSTORM no longer on cooldown"
+
+command /wrstormstrike:
+  permission: ksp.wr.storm
+  permission message: {@prefix} You need permission &fksp.wr&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&f%player%'s Weather Report &8» &7Weather Report!"
+        execute console command "/esudo %player% strike"
+        wait 1 second
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% WRSTORMSTRIKE on cooldown"
+        wait 10 seconds
+        send "{@prefix} Storm strike cooldown over."
+        execute console command "/ehelpop %player% WRSTORMSTRIKE no longer on cooldown"
+
+command /wrstrikebarrage:
+  permission: ksp.wr.storm
+  permission message: {@prefix} You need permission &fksp.wr&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&f%player%'s Weather Report &8» &7Burn!"
+        loop 7 times:
+          execute console command "/esudo %player% strike"
+        wait 1 second
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% WRSTRIKEBARRAGE on cooldown"
+        wait 20 seconds
+        send "{@prefix} Lightning barrage cooldown over."
+        execute console command "/ehelpop %player% WRSTRIKEBARRAGE no longer on cooldown"
+
+
+#Achtung Baby
+
+
+command /ab:
+  permission: ksp.ab
+  permission message: {@prefix} You need permission &fksp.ab&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&8/abinvis &f- &8Turns the user invisible for a minute."
+    send "&8/abspread (target) &f- &8Forces specified target to become invisible for 30 seconds."
+    send "{@line}"
+
+command /abinvis:
+  permission: ksp.ab
+  permission message: {@prefix} You need permission &fksp.ab&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        send "{@prefix} Poof."
+        execute console command "/minecraft:effect give %player% invisibility 60 255 true"
+
+command /abspread [<player>]:
+  permission: ksp.ab
+  permission message: {@prefix} You need permission &fksp.ab&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        send "{@prefix} Poof." to arg 1
+        send "{@prefix} Poof."
+        execute console command "/minecraft:effect give %arg-1% invisiblity 30 255 true"
+
+
+#Sticky Fingers
+
+
+command /sf:
+  permission: ksp.sf
+  permission message: {@prefix} You need permission &fksp.sf&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&1/sfrush or /sfari &f- &1ARI ARI ARI ARI ARI ARI ARI ARI ARI"
+    send "&1/sfunzip (target) &f- &1Open a body part of the target, slowing them."
+    send "&1/sftravel &f- &1Travel through blocks to the first open slot on the cursor."
+    send "{@line}"
+
+command /sfunzip [<player>]:
+  permission: ksp.sf
+  permission message: {@prefix} You need permission &fksp.sf &7to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&1%player%'s Sticky Fingers &8» &7Arrivederci."
+        send "{@prefix} %player%'s Sticky Fingers launches forward and unzips part of you, slowing you." to arg 1
+        execute console command "/effect give %arg-1% slowness 3 255 true"
+        execute console command "/effect give %arg-1% weakness 3 1 true"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% SFUNZIP on cooldown"
+        wait 15 seconds
+        send "{@prefix} Unzip cooldown over."
+        execute console command "/ehelpop %player% SFUNZIP no longer on cooldown"
+
+command /sfrush:
+  aliases: /sfari
+  permission: ksp.sf
+  permission message: {@prefix} You need permission &fksp.sf&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        execute console command "/minecraft:effect give %player% strength 5 1"
+        broadcast "&1%player%'s Sticky Fingers &8» &7ARI ARI ARI ARI ARI ARI ARI ARI ARI ARI ARI!"
+        wait 5 seconds
+        broadcast "&1%player%'s Sticky Fingers &8» &7Arrivederci."
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% SFRUSH on cooldown"
+        wait 10 seconds
+        send "{@prefix} Stand rush cooldown over."
+        execute console command "/ehelpop %player% SFRUSH no longer on cooldown"
+
+command /sftravel:
+  permission: ksp.sf
+  permission message: {@prefix} You need permission &fksp.sf&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&1%player%'s Sticky Fingers &8» &7STICKY FINGERS!"
+        wait 1 second
+        execute console command "/esudo %player% thru"
+        wait 1 second
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% SFTRAVEL on cooldown"
+        wait 5 seconds
+        send "{@prefix} Zipper travel cooldown over."
+        execute console command "/ehelpop %player% SFTRAVEL no longer on cooldown"
+
+
+#Magicians Red
+
+
+command /mr:
+  permission: ksp.mr
+  permission message: {@prefix} You need permission &fksp.mr&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&4/mrfireball or /mrf &f- &4Send a fireball at your cursor."
+    send "&4/mrdoublefireball or /mrdf &f- &4Send two fireballs at your cursor."
+    send "&4/mrcrossfirehurricane or /mrcfh &f- &4Send a ton of fireballs in seconds at your cursor."
+    send "{@line}"
+
+command /mrfireball:
+  aliases: /mrf
+  permission: ksp.mr
+  permission message: {@prefix} You need permission &fksp.mr&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&4%player% &8» &7Magician's Red!"
+        wait 1 second
+        execute console command "/esudo %player% efireball"
+        wait 1 second
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% MRFIREBALL on cooldown"
+        wait 5 seconds
+        send "{@prefix} Fireball cooldown over."
+        execute console command "/ehelpop %player% MRFIREBALL no longer on cooldown"
+
+command /mrdoublefireball:
+  aliases: /mrdf
+  permission: ksp.mr
+  permission message: {@prefix} You need permission &fksp.mr &7to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&4%player% &8» &7Magician's Red!"
+        wait 1 second
+        execute console command "/esudo %player% efireball"
+        wait 1 second
+        execute console command "/esudo %player% efireball"
+        wait 1 second
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% MRDOUBLEFIREBALL on cooldown"
+        wait 10 seconds
+        send "{@prefix} Double fireball cooldown over."
+        execute console command "/ehelpop %player% MRDOUBLEFIREBALL no longer on cooldown"
+
+command /mrcrossfirehurricane:
+  aliases: /mrcfh
+  permission: ksp.mr
+  permission message: {@prefix} You need permission &fksp.mr &7to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&4%player%'s Magician's Red &8» &7Crossfire Hurricane Special!"
+        wait 1 second
+        execute console command "/esudo %player% efireball"
+        wait 1 second
+        execute console command "/esudo %player% efireball"
+        wait 1 second
+        execute console command "/esudo %player% efireball"
+        wait 1 second
+        execute console command "/esudo %player% efireball"
+        wait 1 second
+        execute console command "/esudo %player% efireball"
+        wait 1 second
+        execute console command "/esudo %player% efireball"
+        wait 1 second
+        execute console command "/esudo %player% efireball"
+        wait 1 second
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% MRCROSSFIREHURRICANE on cooldown"
+        wait 30 seconds
+        send "{@prefix} Crossfire hurricane cooldown over."
+        execute console command "/ehelpop %player% MRCROSSFIREHURRICANE no longer on cooldown"
+
+
+#Crazy Diamond
+
+
+command /cd:
+  permission: ksp.cd
+  permission message: {@prefix} You need permission &fksp.cd&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&b/cdhealpunch or /cdheal (target) &f- &bDORA! Heal anyone you target. (If you use it on yourself i ban ok?)"
+    send "&b/cdrush or /cddora &f- &bStand power rush. &f- &bDORARARARARARARARARARARA!"
+    send "{@line}"
+
+command /cdhealpunch [<player>]:
+  aliases: /cdheal
+  permission: ksp.cd
+  permission message: {@prefix} You need permission &fksp.cd&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        if arg-1 is set:
+          if arg-1 is not "%player%":
+            broadcast "&b%player%'s Crazy Diamond &8» &7DORARARARARARARARA!"
+            execute console command "/minecraft:effect give %arg-1% regeneration 5 3 true"
+            send "{@prefix} Please wait for the cooldown before using this ability again."
+            execute console command "/ehelpop %player% CDHEALPUNCH on cooldown"
+            wait 10 seconds
+            send "{@prefix} Heal punch cooldown over."
+            execute console command "/ehelpop %player% CDHEALPUNCH no longer on cooldown"
+        else:
+          send "{@prefix} Specify a player."
+
+command /cdrush:
+  aliases: /cddora
+  permission: ksp.cd
+  permission message: {@prefix} You need permission &fksp.cd&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        execute console command "/minecraft:effect give %player% strength 5 2"
+        broadcast "&b%player%'s Crazy Diamond &8» &7DORARARARARARARARARARARARARARARARARARARARARARARARARARA!"
+        wait 5 seconds
+        broadcast "&b%player%'s Crazy Diamond &8» &7DORA!"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% CDRUSH on cooldown"
+        wait 10 seconds
+        send "{@prefix} Stand rush cooldown over."
+        execute console command "/ehelpop %player% CDRUSH no longer on cooldown"
+
+
+#Star Platinum The World
+
+
+command /sptw:
+  permission: ksp.sptw
+  permission message: {@prefix} You need permission &fksp.sptw&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&b/sptwtimestop or /sptwts &f- &bSTAR PLATINUM: ZA WARUDO! 4 second time stop."
+    send "&b/sptwrush or /sptwora &f- &bStand power rush. &f- &bORA ORA ORA ORA ORA ORA ORA ORA ORA"
+    send "&b/sptwlastora or /sptwgrab &f- &bThe Last Ora"
+    send "{@line}"
+
+command /sptwlastora:
+  aliases: /sptwgrab
+  permission: ksp.sptw
+  permission message: {@prefix} You need permission &fksp.sptw&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&b%player%'s Star Platinum The World &8» &7Yare yare daze."
+        set {ksp.sptw.grab.%player%} to true
+        wait 5 seconds
+        set {ksp.sptw.grab.%player%} to false
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% SPTWLastOra on cooldown"
+        wait 30 seconds
+        send "{@prefix} Last Ora cooldown over."
+        execute console command "/ehelpop %player% SPTWLastOra no longer on cooldown"
+
+on damage:
+  if {ksp.sptw.grab.%attacker%} is true:
+    if {ksp.timestop} is not true:
+      execute console command "/minecraft:effect give %attacker% weakness 5 255 true"
+      execute console command "/minecraft:effect give %attacker% slowness 5 255 true"
+      execute console command "/minecraft:effect give %victim% weakness 5 255 true"
+      execute console command "/minecraft:effect give %victim% slowness 5 255 true"
+      set {ksp.ws.stolen.%victim%} to true
+      set {ksp.ws.stolen.%attacker%} to true
+      broadcast "&b%attacker%'s Star Platinum The World &8» &7ORA!"
+      wait 1 seconds
+      broadcast "&c%victim% &8» &7This... speed... Impossible..."
+      wait 1 seconds
+      broadcast "&b%attacker%'s Star Platinum The World &8» &7Yare yare..."
+      wait 1 seconds
+      broadcast "&b%attacker%'s Star Platinum The World &8» &7ORA ORA ORA ORA ORA ORA ORA ORA!"
+      wait 1 seconds
+      broadcast "&b%attacker%'s Star Platinum The World &8» &7ORAAAAA! ORA! ORA ORA ORA ORA!"
+      wait 1 seconds
+      broadcast "&b%attacker%'s Star Platinum The World &8» &7ORA ORA ORA ORA ORA ORA!"
+      set {ksp.ws.stolen.%attacker%} to false
+      set {ksp.ws.stolen.%victim%} to false
+      execute console command "/minecraft:effect give %victim% instant_damage 1 2"
+
+command /sptwtimestop:
+  aliases: /sptwts
+  permission: ksp.sptw
+  permission message: {@prefix} You need permission &fksp.sptw&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&b%player%'s Star Platinum The World &8» &7STAR PLATINUM: ZA WARUDO!"
+        broadcast "&cTime is now stopped for 4 seconds."
+        set {ksp.timestop} to true
+        set {ksp.timestop.user} to "%player%"
+        loop all players:
+          if loop-player does not have permission "ksp.spp":
+            if loop-player does not have permission "ksp.t4":
+              if loop-player does not have permission "ksp.t3":
+                if loop-player does not have permission "ksp.ger":
+                  if loop-player does not have permission "mod":
+                    execute console command "/minecraft:effect give %loop-player% weakness 4 255 true"
+                    execute console command "/minecraft:effect give %loop-player% blindness 4 255 true"
+                    execute console command "/minecraft:effect give %loop-player% slowness 4 255 true"
+        execute console command "/minecraft:effect clear %player%"
+        wait 5 seconds
+        set {ksp.timestop} to false
+        set {ksp.timestop.user} to "none"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% SPTWTimeStop on cooldown"
+        wait 30 seconds
+        send "{@prefix} Time stop cooldown over."
+        execute console command "/ehelpop %player% SPTWTimeStop no longer on cooldown"
+
+command /sptwrush:
+  aliases: /sptwora
+  permission: ksp.sptw
+  permission message: {@prefix} You need permission &fksp.sptw&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        execute console command "/minecraft:effect give %player% strength 5 2"
+        broadcast "&b%player%'s Star Platinum The World &8» &7ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA!"
+        wait 5 seconds
+        broadcast "&b%player%'s Star Platinum The World &8» &7ORA!"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% SPTWRUSH on cooldown"
+        wait 10 seconds
+        send "{@prefix} Stand rush cooldown over."
+        execute console command "/ehelpop %player% SPTWRUSH no longer on cooldown"
+    else if {ksp.timestop} is true:
+      if {ksp.timestop.user} is "%player%":
+        if {ksp.ws.stolen.%player%} is not true:
+          execute console command "/minecraft:effect give %player% strength 5 2"
+          broadcast "&b%player%'s Star Platinum The World &8» &7ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA!"
+          wait 5 seconds
+          broadcast "&b%player%'s Star Platinum The World &8» &7ORA!"
+          send "{@prefix} Please wait for the cooldown before using this ability again."
+          execute console command "/ehelpop %player% SPTWRUSH on cooldown"
+          wait 10 seconds
+          send "{@prefix} Stand rush cooldown over."
+          execute console command "/ehelpop %player% SPTWRUSH no longer on cooldown"
+
+
+#Star Platinum Prime
+
+
+command /spp:
+  permission: ksp.spp
+  permission message: {@prefix} You need permission &fksp.spp&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&5/spptimestop or /sppts &f- &5STAR PLATINUM: ZA WARUDO! 4 second time stop."
+    send "&5/spprush or /sppora &f- &5Stand power rush. &f- &5ORA ORA ORA ORA ORA ORA ORA ORA ORA"
+    send "&5/sppjudge or /sppgrab &f- &5My stand... will be your judge!"
+    send "{@line}"
+
+command /sppjudge:
+  aliases: /sppgrab
+  permission: ksp.spp
+  permission message: {@prefix} You need permission &fksp.spp&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&5%player%'s Star Platinum Prime &8» &7Yare yare daze."
+        set {ksp.spp.grab.%player%} to true
+        wait 5 seconds
+        set {ksp.spp.grab.%player%} to false
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% SPPJudge on cooldown"
+        wait 30 seconds
+        send "{@prefix} Judgement cooldown over."
+        execute console command "/ehelpop %player% SPPJudge no longer on cooldown"
+
+on damage:
+  if {ksp.spp.grab.%attacker%} is true:
+    if {ksp.timestop} is not true:
+      execute console command "/minecraft:effect give %attacker% weakness 5 255 true"
+      execute console command "/minecraft:effect give %attacker% slowness 5 255 true"
+      execute console command "/minecraft:effect give %victim% weakness 5 255 true"
+      execute console command "/minecraft:effect give %victim% slowness 5 255 true"
+      set {ksp.ws.stolen.%victim%} to true
+      set {ksp.ws.stolen.%attacker%} to true
+      broadcast "&5%attacker%'s Star Platinum Prime &8» &7ORA!"
+      wait 1 seconds
+      broadcast "&c%victim% &8» &7This... speed... Impossible..."
+      wait 1 seconds
+      broadcast "&5%attacker%'s Star Platinum Prime &8» &7Yare yare..."
+      wait 1 seconds
+      broadcast "&5%attacker%'s Star Platinum Prime &8» &7ORA ORA ORA ORA ORA ORA ORA ORA!"
+      wait 1 seconds
+      broadcast "&5%attacker%'s Star Platinum Prime &8» &7ORAAAAA! ORA! ORA ORA ORA ORA!"
+      wait 1 seconds
+      broadcast "&5%attacker%'s Star Platinum Prime &8» &7ORA ORA ORA ORA ORA ORA!"
+      set {ksp.ws.stolen.%attacker%} to false
+      set {ksp.ws.stolen.%victim%} to false
+      execute console command "/minecraft:effect give %victim% instant_damage 1 1"
+
+#command /spptsmovement:
+#  aliases: /spptsmove
+#  permission: ksp.spp
+#  permission message: {@prefix} You need permission &fksp.spp &7to use this command.
+#  trigger:
+#    execute console command "/minecraft:effect clear %player%"
+#    send "{@prefix} SPP starts moving."
+
+command /spptimestop:
+  aliases: /sppts
+  permission: ksp.spp
+  permission message: {@prefix} You need permission &fksp.spp&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&5%player%'s Star Platinum Prime &8» &7STAR PLATINUM: ZA WARUDO!"
+        broadcast "&cTime is now stopped for 5 seconds."
+        execute console command "/minecraft:effect give @e weakness 5 255 true"
+        execute console command "/minecraft:effect give @e blindness 5 255 true"
+        execute console command "/minecraft:effect give @e slowness 5 255 true"
+        set {ksp.timestop} to true
+        set {ksp.timestop.user} to "%player%"
+        loop all players:
+          if loop-player does not have permission "ksp.spp":
+            if loop-player does not have permission "ksp.t4":
+              if loop-player does not have permission "ksp.t3":
+                if loop-player does not have permission "ksp.ger":
+                  if loop-player does not have permission "mod":
+                    execute console command "/minecraft:effect give %loop-player% weakness 4 255 true"
+                    execute console command "/minecraft:effect give %loop-player% blindness 4 255 true"
+                    execute console command "/minecraft:effect give %loop-player% slowness 4 255 true"
+        execute console command "/minecraft:effect clear %player%"
+        wait 5 seconds
+        set {ksp.timestop} to false
+        set {ksp.timestop.user} to "none"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% SPPTimeStop on cooldown"
+        wait 30 seconds
+        send "{@prefix} Time stop cooldown over."
+        execute console command "/ehelpop %player% SPPTimeStop no longer on cooldown"
+
+command /spprush:
+  aliases: /sppora
+  permission: ksp.spp
+  permission message: {@prefix} You need permission &fksp.spp&7 to use this command.
+  trigger:
+    if {ksp.ws.stolen.%player%} is not true:
+      execute console command "/minecraft:effect give %player% strength 5 2"
+      broadcast "&5%player%'s Star Platinum Prime &8» &7ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA!"
+      wait 5 seconds
+      broadcast "&5%player%'s Star Platinum Prime &8» &7ORA!"
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% SPPRUSH on cooldown"
+      wait 10 seconds
+      send "{@prefix} Stand rush cooldown over."
+      execute console command "/ehelpop %player% SPPRUSH no longer on cooldown"
+
+
+#The World
+
+
+command /tw:
+  permission: ksp.tw
+  permission message: {@prefix} You need permission &fksp.tw&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&e/twtimestop or /twts &f- &eZA WARUDO! 5 second time stop."
+    send "&e/twroadroller (target) &f- &eROAD ROLLER DA! Stops time and slams target with road roller, usually killing them."
+    send "&e/twrush or /twmuda &f- &eStand power rush. &f- &eMUDA MUDA MUDA MUDA MUDA MUDA MUDA"
+    send "{@line}"
+
+command /twtimestop:
+  aliases: /twts
+  permission: ksp.tw
+  permission message: {@prefix} You need permission &fksp.tw&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&e%player%'s The World &8» &7ZA WARUDO! TOKI YO TOMARE!"
+        broadcast "&cTime is now stopped for 6 seconds."
+        set {ksp.timestop} to true
+        set {ksp.timestop.user} to "%player%"
+        loop all players:
+          if loop-player does not have permission "ksp.spp":
+            if loop-player does not have permission "ksp.t4":
+              if loop-player does not have permission "ksp.t3":
+                if loop-player does not have permission "ksp.ger":
+                  if loop-player does not have permission "mod":
+                    execute console command "/minecraft:effect give %loop-player% weakness 4 255 true"
+                    execute console command "/minecraft:effect give %loop-player% blindness 4 255 true"
+                    execute console command "/minecraft:effect give %loop-player% slowness 4 255 true"
+        execute console command "/minecraft:effect clear %player%"
+        wait 5 seconds
+        set {ksp.timestop} to false
+        set {ksp.timestop.user} to "none"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% TWTimeStop on cooldown"
+        wait 30 seconds
+        send "{@prefix} Time stop cooldown over."
+        execute console command "/ehelpop %player% TWTimeStop no longer on cooldown"
+
+command /twrush:
+  aliases: /twmuda
+  permission: ksp.tw
+  permission message: {@prefix} You need permission &fksp.tw&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        execute console command "/minecraft:effect give %player% strength 5 2"
+        broadcast "&e%player%'s The World &8» &7MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA!"
+        wait 5 seconds
+        broadcast "&e%player%'s The World &8» &7WRRRRRRRRRRRYYYYYYYYYY!"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% TWRush on cooldown"
+        wait 10 seconds
+        send "{@prefix} Stand rush cooldown over."
+        execute console command "/ehelpop %player% TWRUSH no longer on cooldown"
+    else if {ksp.timestop} is true:
+      if {ksp.timestop.user} is "%player%":
+        if {ksp.ws.stolen.%player%} is not true:
+          execute console command "/minecraft:effect give %player% strength 5 2"
+          broadcast "&e%player%'s The World &8» &7MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA!"
+          wait 5 seconds
+          broadcast "&e%player%'s The World &8» &7WRRRRRRRRRRRYYYYYYYYYY!"
+          send "{@prefix} Please wait for the cooldown before using this ability again."
+          execute console command "/ehelpop %player% TWRush on cooldown"
+          wait 10 seconds
+          send "{@prefix} Stand rush cooldown over."
+          execute console command "/ehelpop %player% TWRUSH no longer on cooldown"
+
+command /twroadroller [<player>]:
+  permission: ksp.tw
+  permission message: {@prefix} You need permission &fksp.tw&7 to use this command."
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        if arg-1 does not have permission "ksp.spp":
+          broadcast "&e%player%'s The World &8» &7ZA WARUDO! TOKI YO TOMARE!"
+          broadcast "&cTime is now stopped for 9 seconds."
+          set {ksp.timestop} to true
+          execute console command "/minecraft:effect give @e weakness 9 255 true"
+          execute console command "/minecraft:effect give @e blindness 9 255 true"
+          execute console command "/minecraft:effect give %player% invisibility 9 255 true"
+          execute console command "/minecraft:effect give @e slowness 9 255 true"
+          wait 1 second
+          broadcast "&e%player%'s The World &8» &7One second has passed."
+          wait 1 seconds
+          broadcast "&e%player%'s The World &8» &7Two seconds have passed."
+          wait 1 seconds
+          broadcast "&e%player%'s The World &8» &7ROAD ROLLER DA!"
+          execute console command "/minecraft:effect give %arg-1% wither 7 5"
+          broadcast "&e%player%'s The World &8» &7MUDA MUDA MUDA MUDA MUDA MUDA MUDA!"
+          wait 1 second
+          broadcast "&e%player%'s The World &8» &7MUDA MUDA MUDA MUDA MUDA MUDA!"
+          wait 1 second
+          broadcast "&e%player%'s The World &8» &7MUDA MUDA MUDA MUDA MUDA!"
+          wait 1 second
+          broadcast "&e%player%'s The World &8» &7MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA!"
+          wait 1 second
+          broadcast "&e%player%'s The World &8» &7MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA!"
+          wait 1 second
+          broadcast "&e%player%'s The World &8» &7WRRRRRRRRRRRYYYYYYYYYYYYY!"
+          broadcast "&e%player%'s The World &8» &7I'M GOING TO SMASH YOU FLAT!"
+          set {ksp.timestop} to false
+          execute console command "/minecraft:effect give %arg-1% instant_damage 1 2 true"
+          send "{@prefix} Please wait for the cooldown before using this ability again."
+          execute console command "/ehelpop %player% TWRoadRoller on cooldown"
+          wait 75 seconds
+          send "{@prefix} Road roller cooldown over."
+          execute console command "/ehelpop %player% TWRoadRoller no longer on cooldown"
+        else:
+          broadcast "&e%player%'s The World &8» &7ZA WARUDO! TOKI YO TOMARE!"
+          broadcast "&cTime is now stopped for 9 seconds."
+          set {ksp.timestop} to true
+          execute console command "/minecraft:effect give @e weakness 9 255 true"
+          execute console command "/minecraft:effect give @e blindness 9 255 true"
+          execute console command "/minecraft:effect give %player% invisibility 9 255 true"
+          execute console command "/minecraft:effect give @e slowness 9 255 true"
+          wait 1 second
+          broadcast "&e%player%'s The World &8» &7One second has passed."
+          wait 1 seconds
+          broadcast "&e%player%'s The World &8» &7Two seconds have passed."
+          wait 1 seconds
+          broadcast "&e%player%'s The World &8» &7ROAD ROLLER DA!"
+          execute console command "/minecraft:effect give %arg-1% wither 3 5"
+          broadcast "&e%player%'s The World &8» &7MUDA MUDA MUDA MUDA MUDA MUDA MUDA!"
+          wait 1 second
+          broadcast "&5%player%'s Star Platinum Prime &8» &7ORA ORA ORA ORA ORA ORA!"
+          wait 1 second
+          broadcast "&e%player%'s The World &8» &7MUDA MUDA MUDA MUDA MUDA!"
+          wait 1 second
+          broadcast "&5%player%'s Star Platinum Prime &8» &7ORA ORA ORA ORA ORA ORA!"
+          wait 1 second
+          broadcast "&e%player%'s The World &8» &7MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA!"
+          wait 1 second
+          broadcast "&e%player%'s The World &8» &7WRRRRRRRRRRRYYYYYYYYYYYYY!"
+          broadcast "&e%player%'s The World &8» &7I'M GOING TO SMASH YOU FLAT!"
+          set {ksp.timestop} to false
+          execute console command "/minecraft:effect give %arg-1% instant_damage 1 1 true"
+          send "{@prefix} Please wait for the cooldown before using this ability again."
+          execute console command "/ehelpop %player% TWRoadRoller on cooldown"
+          wait 75 seconds
+          send "{@prefix} Road roller cooldown over."
+          execute console command "/ehelpop %player% TWRoadRoller no longer on cooldown"
+
+
+#Silver Chariot
+
+
+command /sc:
+  permission: ksp.sc
+  permission: message {@prefix} You need permission &fksp.sc&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&f/scrush or /schora &f- &fStrong, fast, sword rush, strong as GER's stand rush."
+    send "&f/scarmor &f- Enhances speed at the cost of DPS."
+    send "{@line}"
+
+command /scrush:
+  aliases: /schora
+  permission: ksp.sc
+  permission message: {@prefix} You need permission &fksp.sc&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        execute console command "/minecraft:effect give %player% strength 5 2 true"
+        broadcast "&f%player%'s Silver Chariot &8» &7HORARARARARARARARARARARARARARARARARARARARARARA!"
+        wait 4 seconds
+        broadcast "&f%player%'s Silver Chariot &8» &7HORA!"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% SCRUSH on cooldown"
+        wait 10 seconds
+        send "{@prefix} Chariot rush cooldown over."
+        execute console command "/ehelpop %player% SCRUSH no longer on cooldown"
+
+command /scarmor:
+  permission: ksp.sc
+  permission message: {@prefix} You need permsision &fksp.sc&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        execute console command "/minecraft:effect give %player% speed 30 5 true"
+        execute console command "/minecraft:effect give %player% weakness 30 1 true"
+        broadcast "{@prefix} %player%'s Silver Chariot's armor explodes, weakening it but enhancing it's speed."
+        wait 30 seconds
+        broadcast "{@prefix} %player%'s Silver Chariot armor returns."
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% SCARMOR on cooldown"
+        wait 60 seconds
+        send "{@prefix} Chariot armor cooldown over."
+        execute console command "/ehelpop %player% SCARMOR no longer on cooldown"
+
+
+#Silver Chariot Requiem
+
+
+command /scr:
+  permission: ksp.scr
+  permission message: {@prefix} You need permission &fksp.scr&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&f/scrrush - A powerful rush, the same as GER and SC's rush."
+    send "&f/scrsoul (target) - If the target has a stand, it'll force the stand to attack the user."
+    send "&f/scrsleepingslaves or /scrsleep - Forces all players to slow down and become weaker."
+    send "{@line}"
+
+
+command /scrrush:
+  permission: ksp.scr
+  permission message: {@prefix} You need permission &fksp.scr&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&0%player%'s Silver Chariot Requiem &8» &7..."
+        broadcast "{@prefix} Silver Chariot Requiem's quiet stand rush has activated."
+        execute console command "/minecraft:effect give %player% strength 5 2 true"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% SCRRUSH on cooldown"
+        wait 10 seconds
+        send "{@prefix} Chariot Requiem rush cooldown over."
+        execute console command "/ehelpop %player% SCRRUSH no longer on cooldown"
+
+command /scrsoul [<player>]:
+  permission: ksp.scr
+  permission message: {@prefix} You need permission &fksp.scr&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+      broadcast "&7%arg-1% &8» &7Nani?"
+      execute console command "/minecraft:effect give %arg-1% instant_damage 1 1 true"
+      broadcast "{@prefix} %arg-1%'s stand attacked %arg-1%."
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% SCRSOUL on cool down"
+      wait 10 seconds
+      send "{@prefix} Chariot Requiem soul manipulation cooldown over."
+      execute console command "/ehelpop %player% SCRSOUL no longer on cooldown"
+
+command /scrsleepingslaves:
+  aliases: /scrsleep
+  permission: ksp.scr
+  permission message: {@prefix} You need permission &fksp.scr&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "{@prefix} The requiem quietly plays."
+        execute console command "/minecraft:effect give @e slowness 17 3 true"
+        execute console command "/minecraft:effect give @e weakness 17 3 true"
+        execute console command "/minecraft:effect clear %player%"
+
+
+#Gold Experience
+
+
+command /ge:
+  permission: ksp.ge
+  permission message: {@prefix} You need permission &fksp.ge&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&6/gerush or /gemuda &f- &6Weak stand power rush. &f- &6MUDA MUDA MUDA MUDA MUDA!"
+    send "&6/geslow (target) &f- &6MUDA!"
+    send "&6/gelifegiver (target, can be yourself) &f- &6Heal players, or yourself."
+    send "{@line}"
+
+command /gerush:
+  aliases: /gemuda
+  permission: ksp.ge
+  permission message: {@prefix} You need permission &fksp.ge&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        execute console command "/minecraft:effect give %player% strength 5 0 true"
+        broadcast "&6%player%'s Gold Experience &8» &7MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA!"
+        wait 5 seconds
+        broadcast "&6%player%'s Gold Experience &8» &7WRRRRRRRRRRRYYYYYYYYYY!"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% GERUSH on cooldown"
+        wait 10 seconds
+        send "{@prefix} Stand rush cooldown over."
+        execute console command "/ehelpop %player% GERUSH no longer on cooldown"
+
+command /geslow [<player>]:
+  permission: ksp.ge
+  permission message: {@prefix} You need permission &fksp.ge&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&6%player%'s Gold Experience &8» &7MUDA!"
+        execute console command "/minecraft:effect give %arg-1% instant_damage 1 0 true"
+        execute console command "/minecraft:effect give %arg-1% slowness 5 3 true"
+        execute console command "/minecraft:effect give %arg-1% weakness 5 1"
+        send "{@prefix} %player% struck you with &6Gold Experience&7, slowing you down and weakening you temporarily." to arg 1
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% GESLOW on cooldown"
+        wait 15 seconds
+        send "{@prefix} Slowing punch cooldown over."
+        execute console command "/ehelpop %player% GESLOW no longer on cooldown"
+
+command /gelifegiver [<player>]:
+  permission: ksp.ge
+  permission message: {@prefix} You need permission &fksp.ge&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        set {_distance} to distance between player and arg 1
+        if {_distance} < 10:
+          broadcast "&6%player%'s Gold Experience &8» &7Life, bring forth!"
+          execute console command "/minecraft:effect give %arg-1% regeneration 3 5 true"
+          send "{@prefix} Please wait for the cooldown before using this ability again."
+          execute console command "/ehelpop %player% GELIFEGIVER on cooldown"
+          wait 30 seconds
+          send "{@prefix} Life giver cooldown over."
+          execute console command "/ehelpop %player% GELIFEGIVER no longer on cooldown"
+
+
+#Gold Experience Requiem
+
+
+command /ger:
+  permission: ksp.ger
+  permission message: {@prefix} You need permission &fksp.ger&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&6/gerrush or /germuda &f- &6Stand power rush. &f- &6MUDA MUDA MUDA MUDA MUDA MUDA MUDA"
+#send "&6/gerreturntozero or /gerrtz (target) &f- &6Attack Variant &f- &6Shinjitesu ne suru kotowa keshti nei!"
+    send "&6/gerreturntozero or /gerrtz &f- &6Defense Variant &f- &6Shinjitesu ne suru kotowa keshti nei!"
+    send "&6/gerlifegiver (target) &f- &6Pretty much regular Gold Experience's life giver ability."
+    send "&6/gertaunt &f- &6Stand taunt."
+    send "{@line}"
+
+command /gerlifegiver [<player>]:
+  permission: ksp.ger
+  permission message: {@prefix} You need permission &fksp.ger&7 to use this command.
+  trigger:
+    if {ksp.ws.stolen.%player%} is not true:
+      broadcast "&6%player%'s Gold Experience Requiem &8» &7Life, bring forth!"
+      execute console command "/minecraft:effect give %arg-1% regeneration 3 5 true"
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% GERLIFEGIVER on cooldown"
+      wait 30 seconds
+      send "{@prefix} Life giver cooldown over."
+      execute console command "/ehelpop %player% GERLIFEGIVER no longer on cooldown"
+
+command /gerrush:
+  aliases: /germuda
+  permission: ksp.ger
+  permission message: {@prefix} You need permission &fksp.ger&7 to use this command.
+  trigger:
+    if {ksp.ws.stolen.%player%} is not true:
+      execute console command "/minecraft:effect give %player% strength 5 2"
+      broadcast "&6%player%'s Gold Experience Requiem &8» &7MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA!"
+      wait 5 seconds
+      broadcast "&6%player%'s Gold Experience Requiem &8» &7WRRRRRRRRRRRYYYYYYYYYY!"
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% GERRush on cooldown"
+      wait 10 seconds
+      send "{@prefix} Stand rush cooldown over."
+      execute console command "/ehelpop %player% GERRUSH no longer on cooldown"
+
+#command /gerantispacetime:
+#  aliases: /geranti
+#  permission: ksp.ger
+#  permission message: {@prefix} You need permission &fksp.ger &7to use this command.
+#  trigger:
+#    execute console command "/minecraft:effect clear %player%"
+#    send "{@prefix} GER sees through the attack and begins moving in the messed time."
+
+command /rtztest [<player>]:
+  aliases: /gerrtztest
+  permission: ksp.admin
+  permission message: {@prefix} You need permission &fksp.admin&7 to use this command.
+  trigger:
+    broadcast "&6%player%'s Gold Experience Requiem &8» &7Muda!"
+    execute console command "/minecraft:effect give @e slowness 9999 255 true"
+    execute console command "/minecraft:effect give @e jump_boost 9999 128 true"
+    execute console command "/minecraft:effect give @e weakness 9999 255 true"
+    broadcast "&6%player%'s Gold Experience Requiem &8» &7Korega... Requiem... da."
+    wait 1 second
+    broadcast "&6%player%'s Gold Experience Requiem &8» &7What you're seeing is indeed the truth."
+    wait 1 second
+    broadcast "&6%player%'s Gold Experience Requiem &8» &7You are seeing the movements created by your abilities, but you will never arrive at the truth that's going to happen."
+    wait 2 seconds
+    broadcast "&6%player%'s Gold Experience Requiem &8» &7None who stand before me shall ever get there, regardless of their abilities."
+    wait 3 seconds
+    broadcast "&6%player%'s Gold Experience Requiem &8» &7This is the power of Gold Experience Requiem."
+    wait 1 second
+    broadcast "&c%arg-1% &8» &7Why, you little brat!"
+    execute console command "/minecraft:effect give @e blindness 9999 255 true"
+    wait 3 seconds
+    broadcast "&6%player%'s Gold Experience Requiem &8» &7MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA!"
+    wait 1 second
+    broadcast "&6%player%'s Gold Experience Requiem &8» &7MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA!"
+    wait 1 second
+    broadcast "&6%player%'s Gold Experience Requiem &8» &7MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA!"
+    wait 1 second
+    broadcast "&6%player%'s Gold Experience Requiem &8» &7MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA!"
+    wait 1 second
+    broadcast "&6%player%'s Gold Experience Requiem &8» &7WRRRRRRRRRRRRRRRRRRRYYYYYYYYYYYYYYYYYYYYYYYYYYY!"
+    wait 1 second
+    broadcast "&6%player%'s Gold Experience Requiem &8» &7MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA!"
+    wait 1 second
+    broadcast "&6%player%'s Gold Experience Requiem &8» &7MUUUUDDDAAAAAAAAHHH!"
+    broadcast "&f%arg-1% was slain by &6Gold Experience Requiem"
+    wait 1 second
+    broadcast "&f%arg-1% drowned"
+    wait 1 second
+    broadcast "&f%arg-1% was slain by Car"
+    wait 1 second
+    broadcast "&f%arg-1% fell from a high place"
+    wait 1 second
+    broadcast "&f%arg-1% was slain by Hobo"
+    wait 1 second
+    broadcast "&f%arg-1% was slain by Kars"
+    execute console command "/gamerule keepInventory true"
+    wait 1 second
+    execute console command "/minecraft:effect give %arg-1% instant_damage 1 2 true"
+    wait 3 seconds
+    execute console command "/minecraft:effect clear @e"
+    execute console command "/gamerule keepInventory false"
+    wait 1 second
+    broadcast "&6%player%'s Gold Experience Requiuem &8» &7Everything's over now."
+    send "{@prefix} Please wait for the cooldown before using this ability again."
+    execute console command "/ehelpop %player% GERReturnToZero on cooldown"
+    wait 240 seconds
+    send "{@prefix} Return To Zero (Offense) cooldown over."
+    execute console command "/ehelpop %player% GERReturnToZero no longer on cooldown"
+
+command /gerreturntozero:
+  aliases: /gerrtz
+  permission: ksp.ger
+  permission message: {@prefix} You need permission &fksp.ger &7to use this command.
+  trigger:
+    if {ksp.ws.stolen.%player%} is not true:
+      broadcast "&6%player%'s Gold Experience Requiem &8» &7Shinjitesu ne suru kotowa keshti nei!"
+      execute console command "/minecraft:effect clear @e"
+      execute console command "/minecraft:effect give @e blindness 3 255 true"
+      execute console command "/minecraft:effect give @e slowness 3 3 true"
+      execute console command "/minecraft:effect clear %player%"
+      execute console command "/minecraft:effect give %player% resistance 3 255 true"
+      execute console command "/minecraft:effect give %player% regeneration 3 4 true"
+      send "{@prefix} You are now healing and invulnerable for 3 seconds, all other players are weakened and slowed."
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% GERReturnToZero on cooldown"
+      set {ksp.timestop} to false
+      set {ksp.timestop.user} to "none"
+      wait 120 seconds
+      send "{@prefix} Return To Zero cooldown over."
+      execute console command "/ehelpop %player% GERReturnToZero no longer on cooldown"
