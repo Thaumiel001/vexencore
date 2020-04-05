@@ -606,7 +606,6 @@ command /d4cexchange:
           execute console command "/minecraft:effect give %player% speed 30 2 true"
           execute console command "/minecraft:effect give %player% weakness 30 255 true"
           set {ksp.d4c.exchange.%player%} to "exchanged"
-#######else:
           wait 30 seconds
           broadcast "&b%player%'s D&d4&bC &8» &7Dojyaaaan~!"
           execute console command "/minecraft:effect clear %player%"
