@@ -616,6 +616,12 @@ command /d4cexchange:
           send "{@prefix} Exchange cooldown over."
           execute console command "/ehelpop %player% D4CEXCHANGE no longer on cooldown"
 
+command /exchangefix: 
+  permission: ksp.d4c
+  permission message: takfjgdkgafg
+  trigger:
+    set {ksp.d4c.exchange.%player%} to "not exchanged"
+
 command /d4cclone:
   permission: ksp.d4c
   permission message: {@prefix} You need permission &fksp.d4c&7 to use this command.
