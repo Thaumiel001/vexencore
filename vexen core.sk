@@ -1113,10 +1113,6 @@ command /hakai [<player>]:
 			wait 2 seconds
 			kill arg-1
 
-on mine of diamond ore:
-	if chance of 5%:
-		execute console command "/egive %player% diamond 1 name:&5Amethyst lore:&cDo_Not_Rename_-_Exchange_With_Worksman"
-
 command /supersaiyan:
 	aliases: /ssj
 	permission: nitro
