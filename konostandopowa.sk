@@ -123,7 +123,6 @@ command /stand:
     send "&bUltimate Lifeform &8» &b/ulf"
     send "&bD&d4&bC &8» &b/d&d4&bc"
     send "&5Purple &0Haze &8» &5/ph"
-    send "&6Spooky Scary Skeletons &8» &6/ss"
     send "&2C-Moon &8» &2/cmo"
     send "&9Star Platinum Over Heaven &8» &9/spoh"
     send "{@line}"
@@ -171,6 +170,8 @@ command /phblast [<player>]:
         if arg-1 is not set:
           send "{@prefix} Select a player to blast."
         else:
+          set {_d} to distance between player and arg-1
+          if {_d} is > 
           execute console command "/minecraft:effect give %arg-1% wither 5 7 true"
           broadcast "&5%player%'s Purple Haze &8» &7Hhggh..."
           send "{@prefix} Please wait for the cooldown before using this ability again."
