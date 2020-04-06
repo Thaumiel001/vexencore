@@ -175,11 +175,15 @@ command /cminvert:
         execute console command "/ehelpop %player% CMINVERT no longer on cooldown"
  
 on damage:
-  if {ksp.cmo.invert.%attacker} is true:
-    broadcast "&2%player%'s C-Moon &8» &7Uosha!"
-    
+  if {ksp.cmo.invert.%attacker%} is true:
+    broadcast "&2%attacker%'s C-Moon &8» &7Uosha!"
+    set {ksp.cmo.invert.%attacker%} to false
+    loop 200 times:
+				push arg-1 upwards
     wait 2 seconds
-    broadcast "&2%player%'s C-Moon &8» &7C-Moon..."
+    broadcast "&2%attacker%'s C-Moon &8» &7C-Moon..."
+    send "{@prefix} You feel your gravity invert." to victim
+    execute console command "/effect give %victim% slow_falling 45 1 true"
   
 command /cmrevert:
   permission: ksp.cmo
@@ -187,7 +191,33 @@ command /cmrevert:
   trigger:
     if {ksp.timestop} is not true:
       if {ksp.ws.stolen.%player%} is not true:
-        b
+        broadcast "&2%player%'s C-Moon &8» &7Oubasha!"
+        send "{@prefix} Hit someone."
+        set {ksp.cmo.revert.%player%} to true
+        wait 15 seconds
+        set {ksp.cmo.revert.%player%} to false
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% CMREVERT on cooldown"
+        wait 60 seconds
+        send "{@prefix} Revert cooldown over."
+        execute console command "/ehelpop %player% CMREVERT no longer on cooldown"
+ 
+on damage:
+  if {ksp.cmo.revert.%attacker%} is true:
+    broadcast "&2%attacker%'s C-Moon &8» &7Uosha!"
+    set {ksp.cmo.revert.%attacker%} to false
+    set {ksp.ws.stolen.%victim%} to true
+    send "{@prefix} Your stand leaves you." to victim
+    execute console command "/minecraft:effect give %victim% weakness 5 255 true"
+    execute console command "/minecraft:effect give %victim% blindness 5 255 true"
+    execute console command "/minecraft:effect give %victim% slowness 5 255 true"
+    wait 2 seconds
+    broadcast "&2%attacker%'s C-Moon &8» &7C-Moon..."
+    send "{@prefix} You feel your gravity revert." to victim
+    apply 
+    wait 15 seconds
+    send "{@prefix} Your stand returns to you." to victim
+    set {ksp.ws.stolen.%victim%} to false
 
 command /cmoonaccelerate:
   aliases: /cma
