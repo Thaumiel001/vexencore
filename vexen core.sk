@@ -1242,3 +1242,9 @@ command /KingStrike [<player>]:
 			apply slowness 255 to arg-1 for 2 seconds
 			wait 2 seconds
 			execute console command "/minecraft:effect give %arg-1% instant_damage 1 1 true"
+
+command /iceking [<text>]:
+	permission: admin
+	permission message: {@perm.admin}
+	trigger:
+		broadcast "&bIce King &8» &7%arg-1%"
