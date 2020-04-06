@@ -6,4 +6,4 @@
 
 # note to me: CST is 1 hour behind EST
 
-# v^S - s^7 Open Source Skript Repo
+# v^S - s^8 Open Source Skript Repo
