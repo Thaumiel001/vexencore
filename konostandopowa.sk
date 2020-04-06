@@ -124,8 +124,90 @@ command /stand:
     send "&bD&d4&bC &8» &b/d&d4&bc"
     send "&5Purple &0Haze &8» &5/ph"
     send "&2C-Moon &8» &2/cmo"
-    send "&9Star Platinum Over Heaven &8» &9/spoh"
     send "{@line}"
+    
+
+#C-Moon
+
+
+command /cmo:
+  permission: ksp.cmo
+  permission message: {@prefix} You need permission &fksp.cmo&7 to use this command.
+  trigger:
+    send "&cKono stando powah!"
+    send "{@line}"
+    send "&2/cmchop &f- &2A fast chop with high damage."
+    send "&2/cminvert &f- &2Person that you hit after it's activated is launched and slow falls back down, dealing high damage."
+    send "&2/cmrevert &f- &2Mini time stop on the person hit, disables stands for 10 seconds."
+    send "&2/cmaccelerate or /cma &f- &2Weaker time acceleration."
+    send "{@line}"
+
+command /cmchop:
+  permission: ksp.cmo
+  permission message: {@prefix} You need permsision &fksp.cmo&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&2%player%'s Whitesnake &8» &7Uoshhhaaaaaaaa . . ."
+        execute console command "/minecraft:effect give %player% strength 3 2"
+        wait 2 seconds
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% CMCHOP on cooldown"
+        wait 10 seconds
+        send "{@prefix} Chop cooldown over."
+        execute console command "/ehelpop %player% CMCHOP no longer on cooldown"
+
+command /cminvert:
+  permission: ksp.cmo
+  permission message: {@prefix} You need permsision &fksp.cmo&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        broadcast "&2%player%'s C-Moon &8» &7Oubasha!"
+        send "{@prefix} Hit someone."
+        set {ksp.cmo.invert.%player%} to true
+        wait 15 seconds
+        set {ksp.cmo.invert.%player%} to false
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% CMINVERT on cooldown"
+        wait 60 seconds
+        send "{@prefix} Invert cooldown over."
+        execute console command "/ehelpop %player% CMINVERT no longer on cooldown"
+ 
+on damage:
+  if {ksp.cmo.invert.%attacker} is true:
+    broadcast "&2%player%'s C-Moon &8» &7Uosha!"
+    
+    wait 2 seconds
+    broadcast "&2%player%'s C-Moon &8» &7C-Moon..."
+  
+command /cmrevert:
+  permission: ksp.cmo
+  permission message: {@prefix} You need permsision &fksp.cmo&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        b
+
+command /cmoonaccelerate:
+  aliases: /cma
+  permission: ksp.cmo
+  permission message: {@prefix} You need permission &fksp.mih&7 to use this command.
+  trigger:
+    if {ksp.ws.stolen.%player%} is not true:
+      broadcast "&2%player%'s C-Moon &8» &7Uoshhaaaaa!"
+      execute console command "/minecraft:effect give @e slowness 12 2 true"
+      execute console command "/minecraft:effect give @e mining_fatigue 12 3 true"
+      execute console command "/minecraft:effect give @e slowness 12 2 true"
+      execute console command "/minecraft:effect clear %player%"
+      execute console command "/minecraft:effect give %player% speed 12 2 true"
+      execute console command "/minecraft:effect give %player% haste 12 2 true"
+      wait 90 seconds
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% CMOONACCELERATE on cooldown"
+      wait 120 seconds
+      send "{@prefix} Time accelerate cooldown over."
+      execute console command "/ehelpop %player% CMOONACCELERATE no longer on cooldown"
 
 
 #Purple Haze
@@ -171,14 +253,16 @@ command /phblast [<player>]:
           send "{@prefix} Select a player to blast."
         else:
           set {_d} to distance between player and arg-1
-          if {_d} is > 
-          execute console command "/minecraft:effect give %arg-1% wither 5 7 true"
-          broadcast "&5%player%'s Purple Haze &8» &7Hhggh..."
-          send "{@prefix} Please wait for the cooldown before using this ability again."
-          execute console command "/ehelpop %player% PHBLAST on cooldown"
-          wait 45 seconds
-          send "{@prefix} Blast no longer on cooldown."
-          execute console command "/ehelpop %player% PHBLAST no longer on cooldown"
+          if {_d} < 150:
+            execute console command "/minecraft:effect give %arg-1% wither 5 7 true"
+            broadcast "&5%player%'s Purple Haze &8» &7Hhggh..."
+            send "{@prefix} Please wait for the cooldown before using this ability again."
+            execute console command "/ehelpop %player% PHBLAST on cooldown"
+            wait 45 seconds
+            send "{@prefix} Blast no longer on cooldown."
+            execute console command "/ehelpop %player% PHBLAST no longer on cooldown"
+          else:
+            send "{@prefix} They must be close.
 
 command /phrush:
   aliases: /phubasha
