@@ -467,7 +467,7 @@ command /release [<player>]:
 	permission message: {@perm.law}
 	trigger:
 		if {vexen.arresting.%arg-1%} is true:
-			execute console command "/eunjail %arg-1%"
+			execute console command "/jail %arg-1% prison 1"
 			set {vexen.arresting.%arg-1%} to false
 			set {vexen.arrested.%arg-1%} to 0
 			broadcast "{@prefix} &c%player% &7released &c%arg-1% &7from prison."
@@ -1093,7 +1093,7 @@ on damage:
 	if {vexen.ui.%victim%} is true:
 		if {vexen.ui.%attacker%} is not true:
 			cancel event
-			send "{@prefix} &c%player% &7dodges, using Ultra Instinct." to attacker
+			send "{@prefix} &c%victim% &7dodges with Ultra Instinct." to attacker
 	else:
 		if {vexen.ui.%attacker%} is true:
 			cancel event
@@ -1248,3 +1248,19 @@ command /iceking [<text>]:
 	permission message: {@perm.admin}
 	trigger:
 		broadcast "&bIce King &8» &7%arg-1%"
+
+n damage of villager:
+	if attacker is a player:
+	if name of the damaged villager contains "&5&lVAC":
+		increase damage by 100
+		
+on damage:
+	if name of the attacker contains "&b&lFrozen":
+		if {vexen.frozencd.%victim%} is not true:
+			set {vexen.frozencd.%victim%} to true
+			apply blindness 1 to the victim for 4 seconds
+			apply weakness 2 to the victim for 8 seconds
+			apply slowness 4 to the victim for 10 seconds
+			send "&5&lVEXEN &8» &cYou &7are slowed and weakened for 8-10 seconds by a &bFrozen %attacker%&7."
+			wait 20 seconds
+			set {vexen.frozencd.%victim%} to false
