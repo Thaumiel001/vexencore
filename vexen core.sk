@@ -1264,4 +1264,4 @@ command /entityspeak [<text>] [<text>]:
 	permission: admin
 	permission message: {@perm.admin}
 	trigger:
-		broadcast "&c%arg-1%» &7%arg-2%"
+		broadcast "&c%arg-1% &8» &7%arg-2%"
