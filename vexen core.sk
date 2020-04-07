@@ -1259,3 +1259,9 @@ on damage:
 			send "&5&lVEXEN &8» &cYou &7are slowed and weakened for 8-10 seconds by a &bFrozen %attacker%&7."
 			wait 20 seconds
 			set {vexen.frozencd.%victim%} to false
+
+command /entityspeak [<text>]:
+	permission: admin
+	permission message: {@perm.admin}
+	trigger:
+		broadcast "&c%arg-1%» &7%arg-2%"
