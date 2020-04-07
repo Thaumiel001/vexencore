@@ -1260,7 +1260,7 @@ on damage:
 			wait 20 seconds
 			set {vexen.frozencd.%victim%} to false
 
-command /entityspeak [<text>]:
+command /entityspeak [<text>] [<text>]:
 	permission: admin
 	permission message: {@perm.admin}
 	trigger:
