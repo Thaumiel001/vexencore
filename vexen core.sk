@@ -94,12 +94,63 @@ command /autobanreal:
 					send "{@prefix} wow... %player% did noob move and disable realgolddog autoban every 5 minutes..." to loop-player
 					send "{@prefix} shhh, don't tell anyone, especially not real....!!" to loop-player
 
-#Combat-Log
-#Combat-Log
-#Combat-Log
+#Anti-AFK
+#Anti-AFK
+#Anti-AFK
 
 
+command /afk:
+	trigger:
+		if {vexen.afk.%player%} is not true:
+			set {vexen.afk.%player%} to true
+			broadcast "{@prefix} &c%player% &7is now &cAFK&7."
+		if {vexen.afk.%player%} is true:
+			set {vexen.afk.%player%} to false
+			broadcast "{@prefix} &c%player% &7is no longer &cAFK&7."
 
+on move:
+	if {vexen.afk.%player%} is true:
+		set {vexen.afk.%player%} to false
+		broadcast "{@prefix} &c%player% &7is no longer &cAFK&7."
+	set {vexen.notafk.%player%} to true
+	
+on attack:
+	if {vexen.afk.%player%} is true:
+		set {vexen.afk.%player%} to false
+		broadcast "{@prefix} &c%player% &7is no longer &cAFK&7."
+		
+on chat:
+	if {vexen.afk.%player%} is true:
+		set {vexen.afk.%player%} to false
+		broadcast "{@prefix} &c%player% &7is no longer &cAFK&7."
+		
+on command:
+	if {vexen.afk.%player%} is true:
+		set {vexen.afk.%player%} to false
+		broadcast "{@prefix} &c%player% &7is no longer &cAFK&7."
+
+every 180 minutes:
+	broadcast "{@prefix} &c%player% &7was Anti-AFK kicked for not talking in 3 hours."
+	kick player due to "&cKicked from the game.%nl%%nl%&cKicked by &5&lVEXEN ANTI-CHEAT&c for playing 3 hours without talking in chat."
+
+every 30 minutes:
+	loop all players:
+		set {vexen.afkprot.%loop-player%} to true
+		send loop-player title "&5&lVEXEN" with subtitle "&cYou will be kicked in 10 seconds if you do not move!" for 10 seconds
+		wait 10 seconds
+		if {vexen.afkprot2.%loop-player%} is not true:
+			broadcast "{@prefix} &c%player% &7was Anti-AFK kicked for not moving in the AFK check."
+			kick player due to "&cKicked from the game.%nl%%nl%&cKicked by &5&lVEXEN ANTI-CHEAT&c for failing the AFK check."
+			set {vexen.afkprot.%loop-player%} to false
+			set {vexen.afkprot2.%loop-player%} to false
+		else:
+			set {vexen.afkprot.%loop-player%} to false
+			set {vexen.afkprot2.%loop-player%} to false
+
+on move:
+	loop all players:
+		if {vexen.afkprot.%loop-player%} is true:
+			set {vexen.afkprot2.%loop-player%} to true
 
 #Anti-Cheat
 #Anti-Cheat
