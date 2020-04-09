@@ -1091,8 +1091,8 @@ command /vacban [<player>] [<text>]:
 			send "{@acprefix} /vacban [player] [reason]"
 		else:
 			kick arg 1 due to "&cAccount terminated.%nl%%nl%&cBanned by &5&lVAC&c for %arg-2%%nl%&e%nl%&bBanned permanently."
-			execute console command "/banip %arg-1% Banned by VAC: %arg-2%"
-			broadcast "&5&lVEXEN &8» &c%player% &7banned &c%arg-1% &7permanently for &c%arg-2%&7."
+			ban arg 1 due to "&cAccount terminated.%nl%&cBanned by &5&lVAC&c for %arg-2%%nl%&e%nl%&bBanned permanently."
+			broadcast "&5&lVEXEN &8» &5&lVEXEN ANTI-CHEAT &7banned &c%arg-1% &7permanently for &c%arg-2%&7."
 
 command /hiv [<player>]:
 	permission: mod
