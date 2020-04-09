@@ -1838,7 +1838,7 @@ command /wr:
     send "&f/wrstormstrike - Send an immediate lightning bolt."
     send "&f/wrstrikebarrage - Send 3 bolts at the cursor."
     send "&f/wrrush - Punch the shit out of a nigga"
-    send "&f/wrcloud or /wrfly - Fly away."
+    send "&f/wrcloud or /wrfly - Fly away with gameing style."
     send "{@line}"
 
 command /wrcloud:
