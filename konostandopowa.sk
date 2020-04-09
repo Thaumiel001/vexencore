@@ -756,13 +756,20 @@ command /d4clovetrain:
   trigger:
     if {ksp.infrotate:%player%} is not true:
       broadcast "&b%player%'s D&d4&bC &8» &7Love Train!"
-      execute console command "/minecraft:effect give %player% regeneration 30 255 true"
-      execute console command "/minecraft:effect give %player% resistance 30 255 true"
+      execute console command "/minecraft:effect give %player% regeneration 40 255 true"
+      set {ksp.lovetrain.%player%} to true
+      wait 40 seconds
+      set {ksp.lovetrain.%player%} to false
       send "{@prefix} Please wait for the cooldown before using this ability again."
       execute console command "/ehelpop %player% D4CLOVETRAIN on cooldown"
       wait 90 seconds
       send "{@prefix} Love Train cooldown over."
       execute console command "/ehelpop %player% D4CLOVETRAIN no longer on cooldown"
+
+on damage:
+	if {ksp.lovetrain.%victim%} is true:
+		cancel event
+		send "{@prefix} Love Train!" to attacker
 
 
 #Ultimate Lifeform
@@ -2131,9 +2138,9 @@ command /cdhealpunch [<player>]:
   trigger:
     if {ksp.timestop} is not true:
       if {ksp.ws.stolen.%player%} is not true:
-				send "{@prefix} Punch someone in 5 seconds to heal them to full again."
+				send "{@prefix} Punch someone in 10 seconds to heal them to full again."
 				set {ksp.cdheal.%player%} to true
-				wait 5 seconds
+				wait 10 second
 				set {ksp.cdheal.%player%} to false
         send "{@prefix} Please wait for the cooldown before using this ability again."
         execute console command "/ehelpop %player% CDHEAL on cooldown"
@@ -2350,15 +2357,6 @@ command /spptimestop:
         execute console command "/minecraft:effect give @e slowness 5 255 true"
         set {ksp.timestop} to true
         set {ksp.timestop.user} to "%player%"
-        loop all players:
-          if loop-player does not have permission "ksp.spp":
-            if loop-player does not have permission "ksp.t4":
-              if loop-player does not have permission "ksp.t3":
-                if loop-player does not have permission "ksp.ger":
-                  if loop-player does not have permission "mod":
-                    execute console command "/minecraft:effect give %loop-player% weakness 4 255 true"
-                    execute console command "/minecraft:effect give %loop-player% blindness 4 255 true"
-                    execute console command "/minecraft:effect give %loop-player% slowness 4 255 true"
         execute console command "/minecraft:effect clear %player%"
         wait 5 seconds
         set {ksp.timestop} to false
@@ -2662,7 +2660,8 @@ command /ge:
     send "&cKono stando powah!"
     send "{@line}"
     send "&6/gerush or /gemuda &f- &6Weak stand power rush. &f- &6MUDA MUDA MUDA MUDA MUDA!"
-    send "&6/geslow (target) &f- &6MUDA!"
+    send "&6
+		(target) &f- &6MUDA!"
     send "&6/gelifegiver (target, can be yourself) &f- &6Heal players, or yourself."
     send "{@line}"
 
@@ -2691,7 +2690,7 @@ command /geslow [<player>]:
       if {ksp.ws.stolen.%player%} is not true:
 				send "{@prefix} Attack someone within 10 seconds to slow."
 				set {ksp.geslow.%player%} to true
-				wait 10 seconds
+				wait 10 second
 				set {ksp.geslow.%player%} to false
         send "{@prefix} Please wait for the cooldown before using this ability again."
         execute console command "/ehelpop %player% GESLOW on cooldown"
