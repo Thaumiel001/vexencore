@@ -80,7 +80,7 @@ command /kspspawn [<text>] [<text>]:
           set {ksp.spawns.starrow} to "true"
           set {ksp.spawns.aja} to "true"
         else if arg-2 is "off":
-          broadcast "{@prefix} &c%player% &7enabled spawning of &cAll Items&7."
+          broadcast "{@prefix} &c%player% &7disabled spawning of &cAll Items&7."
           set {ksp.spawns.corpse} to "false"
           set {ksp.spawns.mask} to "false"
           set {ksp.spawns.ajamask} to "false"
@@ -117,9 +117,9 @@ on death of Enderman:
   if {ksp.spawns.starrow} is "true":
     if {ksp.spawns.reqarrow} is "true":
       if chance of 1%:
-        if chance of 10%:
+        if chance of 5%:
           execute console command "/egive %attacker% arrow 1 name:&bStand_Arrow lore:&bGive_to_Thaumiel_to_use_it,_or_keep_it_for_yourself..."
-        if chance of 3%:
+        if chance of 1%:
           if chance of 34%:
             execute console command "/egive %attacker% stick 1 name:&cRequiem_Arrow_Piece_-_Beetle lore:&cGive_to_Thaumiel_to_craft_into_a_requiem_arrow_once_you_have_all_three_pieces."
           if chance of 33%:
