@@ -581,10 +581,6 @@ command /ks:
     send "&e/ksrush &f- &5Weak stand rush."
     send "&e/ksdupe &f- &5Duplicate your arms and do higher damage to your enemy."
     send "&e/ksrip &f- &5Place and rip a sticker off your target, damaging them."
-    send "&e"
-    send "&eLocked Abilities (Admin only) for now"
-    send "&e"
-    send "&e/ksdick &f- &5Multiplies dick size."
     send "{@line}"
 
 command /ksrush:
@@ -1834,7 +1830,53 @@ command /wr:
     send "&f/wrsun - Reveals the sun during a storm."
     send "&f/wrstormstrike - Send an immediate lightning bolt."
     send "&f/wrstrikebarrage - Send 3 bolts at the cursor."
+    send "&f/wrrush - Punch the shit out of a nigga"
+    send "&f/wrcloud or /wrfly - Fly away."
     send "{@line}"
+
+command /wrcloud:
+	aliases: /wrfly
+  permission: ksp.wr
+  permission message: {@prefix} You need permission &fksp.wr&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        execute console command "/efly %player% on"
+				broadcast "&f%player%'s Weather Report &8» Nimbus!"
+				execute console command "/espeed fly %player% 2"
+				send "{@prefix} You can fly for 45 seconds."
+				wait 40 seconds
+				send "{@prefix} Dropping out in 5 seconds.
+				wait 2 seconds
+				send "{@prefix} 3."
+				wait 1 seconds
+				send "{@prefix} 2."
+				wait 1 seconds
+				send "{@prefix} 1."
+				wait 1 seconds
+				broadcast "{@prefix} %player%'s nimbus drops down."
+				execute console command "/efly %player% off"
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% WRCLOUD on cooldown"
+        wait 60 seconds
+        send "{@prefix} Cloud cooldown over."
+        execute console command "/ehelpop %player% WRCLOUD no longer on cooldown"
+
+command /wrrush:
+  permission: ksp.wr
+  permission message: {@prefix} You need permission &fksp.wr&7 to use this command.
+  trigger:
+    if {ksp.timestop} is not true:
+      if {ksp.ws.stolen.%player%} is not true:
+        execute console command "/minecraft:effect give %player% strength 5 1"
+        broadcast "&f%player%'s Weather Report &8» &7ATATATATATATATATATAT!"
+        wait 5 seconds
+        broadcast "&f%player%'s Weather Report &8» &7...."
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% WRRUSH on cooldown"
+        wait 10 seconds
+        send "{@prefix} Stand rush cooldown over."
+        execute console command "/ehelpop %player% WRRUSH no longer on cooldown"
 
 command /wrsun:
   permission: ksp.wr
@@ -1861,7 +1903,7 @@ command /wrstorm:
         execute console command "/ehelpop %player% WRSTORM no longer on cooldown"
 
 command /wrstormstrike:
-  permission: ksp.wr.storm
+  permission: ksp.wr
   permission message: {@prefix} You need permission &fksp.wr&7 to use this command.
   trigger:
     if {ksp.timestop} is not true:
@@ -1871,12 +1913,12 @@ command /wrstormstrike:
         wait 1 second
         send "{@prefix} Please wait for the cooldown before using this ability again."
         execute console command "/ehelpop %player% WRSTORMSTRIKE on cooldown"
-        wait 10 seconds
+        wait 5 seconds
         send "{@prefix} Storm strike cooldown over."
         execute console command "/ehelpop %player% WRSTORMSTRIKE no longer on cooldown"
 
 command /wrstrikebarrage:
-  permission: ksp.wr.storm
+  permission: ksp.wr
   permission message: {@prefix} You need permission &fksp.wr&7 to use this command.
   trigger:
     if {ksp.timestop} is not true:
@@ -1887,7 +1929,7 @@ command /wrstrikebarrage:
         wait 1 second
         send "{@prefix} Please wait for the cooldown before using this ability again."
         execute console command "/ehelpop %player% WRSTRIKEBARRAGE on cooldown"
-        wait 20 seconds
+        wait 10 seconds
         send "{@prefix} Lightning barrage cooldown over."
         execute console command "/ehelpop %player% WRSTRIKEBARRAGE no longer on cooldown"
 
