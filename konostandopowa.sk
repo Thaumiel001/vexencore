@@ -1,4 +1,4 @@
-+
+options:
   version: 1.0
   prefix: &cKSP &8»&7
   line: &0-----------------------------
@@ -551,9 +551,7 @@ command /e3freeze:
   permission: ksp.e3
   permission message: {@prefix} You need permission &fksp.e3&7 to use this command.
   trigger:
-    if arg-1 is not set:
-      send "{@prefix} Please specify a target."
-    else:
+      send "{@prefix} Attack someone in 10 seconds to slow them beyond belief."
       set {ksp.echoes.freeze.%player%} to true
       wait 10 seconds
       set {ksp.echoes.freeze.%player%} to false
@@ -984,7 +982,7 @@ command /vampbloodsteal:
       send "{@prefix} Blood steal over."
       execute console command "/ehelpop %player% VAMPBLOODSTEAL no longer on cooldown"
 
-on attack:
+on damage:
   if {ksp.vampire.bloodsteal.%attacker%} is true:
     broadcast "{@prefix} %player% steals blood from %arg-1% and draws it in to regenerate themself."
     execute console command "/minecraft:effect give %player% regeneration 4 2 true"
@@ -1596,44 +1594,48 @@ command /t4rotation [<player>]:
   permission message: {@prefix} You need permission &fksp.t4&7 to use this command.
   trigger:
     if {ksp.ws.stolen.%player%} is not true:
-      if {ksp.d4c.lovetrain:%player%} is "active":
-        execute console command "/minecraft:effect clear %arg-1%"
-        send "&cKSP &8» &c&l%player% BROKE THROUGH LOVE TRAIN WITH INFINITE ROTATION"
-        send "&cKSP &8» &c&lDo not cancel this with milk or by using ts movement. &7If you are GER, you can use rtz2 to cancel it." to arg 1
-        send "&c&lYOU NEED TO GET THE FUCK OUT OF THERE, INFINITE SPIN INCOMING" to arg 1
-        broadcast "&d%player%'s Tusk Act 4 &8» &7ACTU 4!"
-        set {ksp.infrotate:%arg-1%} to "true"
-        wait 2 second
-        send "{@prefix} The nail imbued with Infinity connects with %arg-1%." to player
-        send "{@prefix} The nail imbued with Infinity connects with you." to arg 1
-        broadcast "&d%player%'s Tusk Act 4 &8» &7ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA!"
-        execute console command "/minecraft:effect give %arg-1% poison 60 255 true"
-        execute console command "/minecraft:effect give %arg-1% slowness 60 1 true"
-        send "{@prefix} Please wait for the cooldown before using this ability again."
-        execute console command "/ehelpop %player% T4ROTATE on cooldown"
-        wait 60 seconds
-        set {ksp.infrotate:%arg-1%} to "false"
-        wait 30 seconds
-        send "{@prefix} Infinite Rotation cooldown over."
-        execute console command "/ehelpop %player% T4ROTATE no longer on cooldown"
-      else:
-        send "&cKSP &8» &c&lDo not cancel this with milk or by using ts movement. &7If you are GER, you can use rtz2 to cancel it." to arg 1
-        send "&c&lYOU NEED TO GET THE FUCK OUT OF THERE, INFINITE SPIN INCOMING" to arg 1
-        broadcast "&d%player%'s Tusk Act 4 &8» &7ACTU 4!"
-        set {ksp.infrotate:%arg-1%} to "true"
-        wait 2 second
-        send "{@prefix} The nail imbued with Infinity connects with %arg-1%." to player
-        send "{@prefix} The nail imbued with Infinity connects with you." to arg 1
-        broadcast "&d%player%'s Tusk Act 4 &8» &7ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA!"
-        execute console command "/minecraft:effect give %arg-1% poison 60 255 true"
-        execute console command "/minecraft:effect give %arg-1% slowness 60 1 true"
-        send "{@prefix} Please wait for the cooldown before using this ability again."
-        execute console command "/ehelpop %player% T4ROTATE on cooldown"
-        wait 60 seconds
-        set {ksp.infrotate:%arg-1%} to "false"
-        wait 30 seconds
-        send "{@prefix} Infinite Rotation cooldown over."
-        execute console command "/ehelpop %player% T4ROTATE no longer on cooldown"
+    	set {_d} to distance between arg-1 and player
+      if {_d} < 100:
+				if {ksp.d4c.lovetrain.%arg-1%} is "active":
+					execute console command "/minecraft:effect clear %arg-1%"
+					send "&cKSP &8» &c&l%player% BROKE THROUGH LOVE TRAIN WITH INFINITE ROTATION"
+					send "&cKSP &8» &c&lDo not cancel this with milk or by using ts movement. &7If you are GER, you can use rtz2 to cancel it." to arg 1
+					send "&c&lYOU NEED TO GET THE FUCK OUT OF THERE, INFINITE SPIN INCOMING" to arg 1
+					broadcast "&d%player%'s Tusk Act 4 &8» &7ACTU 4!"
+					set {ksp.infrotate:%arg-1%} to "true"
+					wait 2 seconds
+					send "{@prefix} The nail imbued with Infinity connects with %arg-1%." to player
+					send "{@prefix} The nail imbued with Infinity connects with you." to arg 1
+					broadcast "&d%player%'s Tusk Act 4 &8» &7ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA!"
+					execute console command "/minecraft:effect give %arg-1% poison 30 255 true"
+					execute console command "/minecraft:effect give %arg-1% slowness 30 1 true"
+					send "{@prefix} Please wait for the cooldown before using this ability again."
+					execute console command "/ehelpop %player% T4ROTATE on cooldown"
+					wait 60 seconds
+					set {ksp.infrotate:%arg-1%} to "false"
+					wait 30 seconds
+					send "{@prefix} Infinite Rotation cooldown over."
+					execute console command "/ehelpop %player% T4ROTATE no longer on cooldown"
+				else:
+					send "&cKSP &8» &c&lDo not cancel this with milk or by using ts movement. &7If you are GER, you can use rtz2 to cancel it." to arg 1
+					send "&c&lYOU NEED TO GET THE FUCK OUT OF THERE, INFINITE SPIN INCOMING" to arg 1
+					broadcast "&d%player%'s Tusk Act 4 &8» &7ACTU 4!"
+					set {ksp.infrotate:%arg-1%} to "true"
+					wait 2 second
+					send "{@prefix} The nail imbued with Infinity connects with %arg-1%." to player
+					send "{@prefix} The nail imbued with Infinity connects with you." to arg 1
+					broadcast "&d%player%'s Tusk Act 4 &8» &7ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA!"
+					execute console command "/minecraft:effect give %arg-1% poison 30 255 true"
+					execute console command "/minecraft:effect give %arg-1% slowness 30 1 true"
+					send "{@prefix} Please wait for the cooldown before using this ability again."
+					execute console command "/ehelpop %player% T4ROTATE on cooldown"
+					wait 60 seconds
+					set {ksp.infrotate:%arg-1%} to "false"
+					wait 30 seconds
+					send "{@prefix} Infinite Rotation cooldown over."
+					execute console command "/ehelpop %player% T4ROTATE no longer on cooldown"
+			else:
+				send "{@prefix} Too far away."
 
 
 #King Crimson
@@ -1708,7 +1710,7 @@ command /kcte:
           broadcast "&c%player%'s King Crimson &8» &7Kingu Kirimuzon no noruyuku..."
           loop all players:
             if {ksp.te.erased.%loop-player%} is true:
-              execute console command "/minecraft:effect give %loop-player% instant_damage 1 2 true"
+              execute console command "/minecraft:effect give %loop-player% instant_damage 1 1 true"
         send "{@prefix} Please wait for the cooldown before using this ability again."
         execute console command "/ehelpop %player% KCTIMEERASE on cooldown"
         wait 180 seconds
@@ -1735,7 +1737,7 @@ command /kctimeeraseold:
         execute console command "/minecraft:effect clear %player%"
         broadcast "&c%player%'s King Crimson &8» &7Kingu Kirimuzon!"
         send "{@prefix} You cannot attack, but prepare to attack."
-        execute console command "/minecraft:effect give %player% speed 10 1 true"
+        execute console command "/minecraft:effect give %player% speed 10 0 true"
         execute console command "/minecraft:effect give %player% weakness 10 255 true"
         execute console command "/minecraft:effect give %player% resistance 10 255 true"
         execute console command "/minecraft:effect give %player% invisibility 10 255 true"
@@ -2076,7 +2078,7 @@ command /cd:
   trigger:
     send "&cKono stando powah!"
     send "{@line}"
-    send "&b/cdhealpunch or /cdheal (target) &f- &bDORA! Heal anyone you target. (If you use it on yourself i ban ok?)"
+    send "&b/cdhealpunch or /cdheal &f- &bDORA! Heal anyone you target."
     send "&b/cdrush or /cddora &f- &bStand power rush. &f- &bDORARARARARARARARARARARA!"
     send "{@line}"
 
@@ -2087,17 +2089,20 @@ command /cdhealpunch [<player>]:
   trigger:
     if {ksp.timestop} is not true:
       if {ksp.ws.stolen.%player%} is not true:
-        if arg-1 is set:
-          if arg-1 is not "%player%":
-            broadcast "&b%player%'s Crazy Diamond &8» &7DORARARARARARARARA!"
-            execute console command "/minecraft:effect give %arg-1% regeneration 5 3 true"
-            send "{@prefix} Please wait for the cooldown before using this ability again."
-            execute console command "/ehelpop %player% CDHEALPUNCH on cooldown"
-            wait 10 seconds
-            send "{@prefix} Heal punch cooldown over."
-            execute console command "/ehelpop %player% CDHEALPUNCH no longer on cooldown"
-        else:
-          send "{@prefix} Specify a player."
+				send "{@prefix} Punch someone in 5 seconds to heal them to full again."
+				set {ksp.cdheal.%player%} to true
+				wait 5 seconds
+				set {ksp.cdheal.%player%} to false
+        send "{@prefix} Please wait for the cooldown before using this ability again."
+        execute console command "/ehelpop %player% CDHEAL on cooldown"
+        wait 10 seconds
+        send "{@prefix} Heal Punch cooldown over."
+        execute console command "/ehelpop %player% CDHEAL no longer on cooldown"
+
+on damage:
+	if {ksp.cdheal.%attacker%} is true:
+		execute console command "/effect give %victim% regeneration 4 255 true"
+		broadcast "&b%player%'s Crazy Diamond &8» &7DORA!"
 
 command /cdrush:
   aliases: /cddora
@@ -2183,15 +2188,9 @@ command /sptwtimestop:
         broadcast "&cTime is now stopped for 4 seconds."
         set {ksp.timestop} to true
         set {ksp.timestop.user} to "%player%"
-        loop all players:
-          if loop-player does not have permission "ksp.spp":
-            if loop-player does not have permission "ksp.t4":
-              if loop-player does not have permission "ksp.t3":
-                if loop-player does not have permission "ksp.ger":
-                  if loop-player does not have permission "mod":
-                    execute console command "/minecraft:effect give %loop-player% weakness 4 255 true"
-                    execute console command "/minecraft:effect give %loop-player% blindness 4 255 true"
-                    execute console command "/minecraft:effect give %loop-player% slowness 4 255 true"
+        execute console command "/minecraft:effect give @e weakness 4 255 true"
+        execute console command "/minecraft:effect give @e blindness 4 255 true"
+        execute console command "/minecraft:effect give @e slowness 4 255 true"
         execute console command "/minecraft:effect clear %player%"
         wait 5 seconds
         set {ksp.timestop} to false
@@ -2370,15 +2369,9 @@ command /twtimestop:
         broadcast "&cTime is now stopped for 6 seconds."
         set {ksp.timestop} to true
         set {ksp.timestop.user} to "%player%"
-        loop all players:
-          if loop-player does not have permission "ksp.spp":
-            if loop-player does not have permission "ksp.t4":
-              if loop-player does not have permission "ksp.t3":
-                if loop-player does not have permission "ksp.ger":
-                  if loop-player does not have permission "mod":
-                    execute console command "/minecraft:effect give %loop-player% weakness 4 255 true"
-                    execute console command "/minecraft:effect give %loop-player% blindness 4 255 true"
-                    execute console command "/minecraft:effect give %loop-player% slowness 4 255 true"
+        execute console command "/minecraft:effect give @e weakness 6 255 true"
+       	execute console command "/minecraft:effect give @e blindness 6 255 true"
+       	execute console command "/minecraft:effect give @e slowness 6 255 true"
         execute console command "/minecraft:effect clear %player%"
         wait 5 seconds
         set {ksp.timestop} to false
@@ -2554,7 +2547,24 @@ command /scr:
     send "&f/scrrush - A powerful rush, the same as GER and SC's rush."
     send "&f/scrsoul (target) - If the target has a stand, it'll force the stand to attack the user."
     send "&f/scrsleepingslaves or /scrsleep - Forces all players to slow down and become weaker."
+    send "&f/scrlaunch or /scrglide - Fast movement.
     send "{@line}"
+
+command /scrlaunch:
+  aliases: /scrglide
+  permission: ksp.scr
+  permission message: {@prefix} You need permsision &fksp.scr&7 to use this command.
+  trigger:
+    if {ksp.ws.stolen.%player%} is not true:
+      execute console command "/minecraft:effect give %player% speed 15 7 true"
+      execute console command "/minecraft:effect give %player% weakness 15 255 true"
+      broadcast "&0%player%'s Silver Chariot Requiem &8» &7..."
+      wait 15 seconds
+      send "{@prefix} Please wait for the cooldown before using this ability again."
+      execute console command "/ehelpop %player% SCRLAUNCH on cooldown"
+      wait 45 seconds
+      send "{@prefix} Glide cooldown over."
+      execute console command "/ehelpop %player% SCRLAUNCH no longer on cooldown"
 
 
 command /scrrush:
@@ -2637,16 +2647,23 @@ command /geslow [<player>]:
   trigger:
     if {ksp.timestop} is not true:
       if {ksp.ws.stolen.%player%} is not true:
-        broadcast "&6%player%'s Gold Experience &8» &7MUDA!"
-        execute console command "/minecraft:effect give %arg-1% instant_damage 1 0 true"
-        execute console command "/minecraft:effect give %arg-1% slowness 5 3 true"
-        execute console command "/minecraft:effect give %arg-1% weakness 5 1"
-        send "{@prefix} %player% struck you with &6Gold Experience&7, slowing you down and weakening you temporarily." to arg 1
+				send "{@prefix} Attack someone within 10 seconds to slow."
+				set {ksp.geslow.%player%} to true
+				wait 10 seconds
+				set {ksp.geslow.%player%} to false
         send "{@prefix} Please wait for the cooldown before using this ability again."
         execute console command "/ehelpop %player% GESLOW on cooldown"
         wait 15 seconds
         send "{@prefix} Slowing punch cooldown over."
         execute console command "/ehelpop %player% GESLOW no longer on cooldown"
+
+on damage:
+	if {ksp.geslow.%attacker%} is true:
+  	broadcast "&6%player%'s Gold Experience &8» &7MUDA!"
+    execute console command "/minecraft:effect give %arg-1% slowness 5 3 true"
+    execute console command "/minecraft:effect give %arg-1% weakness 5 1"
+    send "{@prefix} %player% struck you with &6Gold Experience&7, slowing you down and weakening you temporarily." to victim
+		set {ksp.geslow.%attacker%} to false
 
 command /gelifegiver [<player>]:
   permission: ksp.ge
